@@ -19,7 +19,5 @@ Selamat datang di profil saya! Saya senang berbagi tentang proyek-proyek saya da
 
 ## Kontak
 👤 **AutoFtBot** - [Profil GitHub](https://github.com/AutoFtBot)
- [Telegram](https://t.me/YourTelegramUsername) - [![Telegram Badge](https://img.shields.io/badge/-Telegram-0088cc?style=flat-square&logo=Telegram&logoColor=white&link=https://t.me/YourTelegramUsername)](https://t.me/YourTelegramUsername)
- 
-
+💌 [Telegram](https://t.me/YourTelegramUsername) - [![Telegram Badge](https://img.shields.io/badge/-Telegram-0088cc?style=flat-square&logo=Telegram&logoColor=white&link=https://t.me/YourTelegramUsername)](https://t.me/YourTelegramUsername)
 Jika Anda memiliki pertanyaan atau ingin berkolaborasi, jangan ragu untuk menghubungi saya!
