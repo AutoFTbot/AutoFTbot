@@ -15,8 +15,6 @@ Selamat datang di profil saya! Saya senang berbagi tentang proyek-proyek saya da
 
 <img align="center" src="https://github-readme-stats.vercel.app/api?username=AutoFtBot&show_icons=true&include_all_commits=true&theme=cobalt&hide_border=true" alt="My github stats" /> 
 
-<img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=AutoFtBot&layout=compact&theme=cobalt&hide_border=true" />
-
 ## Kontak
 👤 **AutoFtBot** - [Profil GitHub](https://github.com/AutoFtBot)
 
