@@ -9,7 +9,7 @@
 <!-- Intro  -->
 <h3 align="center">
         <samp>&gt; Hey There!, I am
-                <b><a target="_blank" href="https://alsiam.com">AutoFtBot</a></b>
+                <b><a target="_blank" href="#">AutoFtBot</a></b>
         </samp>
 </h3>
 
