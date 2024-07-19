@@ -90,7 +90,7 @@
 <br/>
 
 ## Top Open Source -
-[![ServerFT](https://github-readme-stats.vercel.app/api/pin/?username=AutoFTbot&repo=uptime&border_color=7F3FBF&bg_color=0D1117&title_color=C9D1D9&text_color=8B949E&icon_color=7F3FBF)](https://github.com/AutoFTbot/uptime)
+[![ServerFT](https://github-readme-stats.vercel.app/api/pin/?username=AutoFTbot&repo=Server-FT&border_color=7F3FBF&bg_color=0D1117&title_color=C9D1D9&text_color=8B949E&icon_color=7F3FBF)](https://github.com/AutoFTbot/uptime)
 [![ApiFT](https://github-readme-stats.vercel.app/api/pin/?username=AutoFTbot&repo=api-ft&border_color=7F3FBF&bg_color=0D1117&title_color=C9D1D9&text_color=8B949E&icon_color=7F3FBF)](https://github.com/AutoFTbot/api-ft)
 
 <p align="left">
