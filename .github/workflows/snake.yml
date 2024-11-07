@@ -16,7 +16,7 @@ jobs:
         uses: Platane/snk@v2
         with:
           github_user_name: ${{ github.repository_owner }}
-          output: dist/snake.svg
+          outputs: dist/snake.svg
 
       - name: Push Snake Animation
         uses: peaceiris/actions-gh-pages@v3
