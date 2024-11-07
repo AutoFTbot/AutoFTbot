@@ -12,8 +12,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Debug
-        run: echo "User: ${{ github.repository_owner }}"
+      - name: Setup Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
 
       - name: Generate Snake Animation
         uses: Platane/snk@v3
