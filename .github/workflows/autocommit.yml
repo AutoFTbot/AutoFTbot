@@ -1,13 +1,13 @@
+AutoFTbot/.github/workflows/aa.yaml
 name: Auto commit
 
 on:
-
   push:
     branches:
       - master
-      
+  workflow_dispatch: # Menambahkan trigger manual
   schedule:
-  - cron: "0 7,9,11 * * 1,3" # Lihat https://crontab.guru/#0_7,9,11_*_*_1,3
+    - cron: "0 7,9,11 * * 1,3" # Lihat https://crontab.guru/#0_7,9,11_*_*_1,3
 
 jobs:
   auto_commit:
@@ -17,8 +17,8 @@ jobs:
         run: echo "::debug::Ref = ${{github.ref}}"
       - uses: actions/checkout@v3      
         with:
-         persist-credentials: false
-         fetch-depth: 0
+          persist-credentials: false
+          fetch-depth: 0
 
       - name: Ubah tanggal terakhir update
         run: |
