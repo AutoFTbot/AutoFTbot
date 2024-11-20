@@ -1,4 +1,4 @@
-AutoFTbot/.github/workflows/aa.yaml
+AutoFTbot/.github/workflows/autocommit.yml
 name: Auto commit
 
 on:
