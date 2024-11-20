@@ -53,7 +53,12 @@ Here are some open source projects I'm working on:
     </td>
   </tr>
   <tr>
-    <td colspan="2">
+    <td>
+      <a href="https://github.com/AutoFTbot/VpnBotStore">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=AutoFTbot&repo=VpnBotStore&theme=radical" alt="VpnBotStore" />
+      </a>
+    </td>
+    <td>
       <a href="https://github.com/AutoFTbot/Api">
         <img src="https://github-readme-stats.vercel.app/api/pin/?username=AutoFTbot&repo=Api&theme=radical" alt="ApiFT" />
       </a>
