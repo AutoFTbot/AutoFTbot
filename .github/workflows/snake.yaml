@@ -1,0 +1,33 @@
+name: Generate Snake Animation
+
+on:
+  schedule:
+    # Jalankan setiap hari pada pukul 00:00 UTC
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repositori
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Jalankan Snake Animation Generator
+      - name: Generate Snake Animation
+        uses: Platane/snk@v2
+        with:
+          # Ganti `username` dengan nama pengguna GitHub Anda
+          github_user_name: username
+          svg_out_path: dist/snake.svg
+
+      # 3. Push hasil ke repositori
+      - name: Push Snake Animation
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          force: true
+
