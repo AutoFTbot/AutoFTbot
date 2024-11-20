@@ -6,8 +6,9 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/AutoFTbot/AutoFTbot/blob/main/assets/mek.svg" alt="Snake animation" />
+  <img src="https://github.com/AutoFTbot/AutoFTbot/blob/output/github-contribution-grid-snake.svg" alt="Snake animation" />
 </p>
+
 
 ## 👋 About Me
 
