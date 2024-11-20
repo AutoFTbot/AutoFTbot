@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: DEBUG 
-        run: echo "::debug::Ref = ${{github.ref}}"
+        run: echo "::debug::Ref = ${{ github.ref }}"
       - uses: actions/checkout@v3      
         with:
           persist-credentials: false
@@ -22,7 +22,7 @@ jobs:
 
       - name: Ubah tanggal terakhir update
         run: |
-          d=`date '+%Y-%m-%dT%H:%M:%SZ'`
+          d=$(date '+%Y-%m-%dT%H:%M:%SZ')
           echo $d > LAST_UPDATED
           
       - name: Commit perubahan
@@ -42,7 +42,7 @@ jobs:
           arr[8]="chore(bot): 🟩 auto commit"
           arr[9]="chore(bot): 👻 auto commit"
           
-          rand=$[$RANDOM % ${#arr[@]}]
+          rand=$((RANDOM % ${#arr[@]}))
           
           git commit -m "${arr[$rand]}"
           
