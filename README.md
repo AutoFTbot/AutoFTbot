@@ -9,6 +9,9 @@
   <img src="https://github.com/AutoFTbot/AutoFTbot/blob/output/github-contribution-grid-snake.svg" alt="Snake animation" />
 </p>
 
+<p align="center">
+  <strong>MALAS NGODING ADALAH JALAN NINJAKU</strong>
+</p>
 
 ## 👋 About Me
 
@@ -66,7 +69,7 @@ Here are some open source projects I'm working on:
   </tr>
 </table>
 
-## 📊 GitHub Stats
+## 📦 GitHub Stats
 
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=AutoFTbot&show_icons=true&theme=radical" alt="AutoFTbot's GitHub Stats" />
