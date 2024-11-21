@@ -1,5 +1,5 @@
 # AutoFTbot
-
+<img src="https://capsule-render.vercel.app/api?type=waving&amp;color=7A92B8&amp;height=100&amp;section=header">
 <p align="center">
   <img src="https://komarev.com/ghpvc/?username=AutoFTbot&label=Visitors&color=0e75b6&style=flat-square" alt="Visitor Count" />
   <img src="https://wakatime.com/badge/user/eebb3dd8-d9b2-40de-9b88-6fd6cac99dbc.svg" alt="Wakatime Badge" />
