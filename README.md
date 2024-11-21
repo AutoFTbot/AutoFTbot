@@ -4,11 +4,11 @@
   <img src="https://komarev.com/ghpvc/?username=AutoFTbot&label=Visitors&color=0e75b6&style=flat-square" alt="Visitor Count" />
   <img src="https://wakatime.com/badge/user/eebb3dd8-d9b2-40de-9b88-6fd6cac99dbc.svg" alt="Wakatime Badge" />
 </p>
-
+<a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
 <p align="center">
   <img src="https://github.com/AutoFTbot/AutoFTbot/blob/output/github-contribution-grid-snake.svg" alt="Snake animation" />
 </p>
-
+<a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
 <p align="center">
   <strong>MALAS NGODING ADALAH JALAN NINJAKU</strong>
 </p>
