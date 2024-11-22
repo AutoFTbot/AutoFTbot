@@ -17,12 +17,18 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
+          # Ekspansi variabel di dalam shell
+          USER="${{ github.actor }}"
+          REPO="${{ github.repository }}"
+          
+          # Menyusun pesan dengan format Markdown menggunakan echo untuk menggabungkan variabel
+          MESSAGE="🎉 *Wow, Ada yang Memberi Star!* 🎉
+
+👤 *User*: $(echo $USER)
+📂 *Repository*: $(echo $REPO)
+
+          # Mengirim pesan ke Telegram
           curl -s -X POST https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage \
             -d chat_id=$TELEGRAM_CHAT_ID \
             -d parse_mode=Markdown \
-            -d text="🎉 *Wow, Ada yang Memberi Star!* 🎉
-
-👤 *User*: [${{ github.actor }}](https://github.com/${{ github.actor }})
-📂 *Repository*: [${{ github.repository }}](https://github.com/${{ github.repository }})
-
-✨ Terima kasih telah mendukung project ini! 🚀"
+            -d text="$MESSAGE"
