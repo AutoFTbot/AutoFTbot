@@ -1,10 +1,9 @@
-name: Notify Telegram on Star
+name: Notify Telegram on Push
 
 on:
-  watch:
-    types:
-      - started # Event akan terpicu saat repository di-star
-
+  push:
+    branches:
+      - main # Dapat disesuaikan dengan branch yang diinginkan
   workflow_dispatch: # Untuk menjalankan secara manual (opsional, untuk pengujian)
 
 jobs:
@@ -20,9 +19,10 @@ jobs:
           # Ekspansi variabel di dalam shell
           USER="${{ github.actor }}"
           REPO="${{ github.repository }}"
+          COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
 
           # Menyusun pesan dengan format Markdown
-          MESSAGE="⭐️ Wow, Ada yang Memberi Star!⭐️👤 User:$USER📁 Repository:$REPO✨ Terima kasih telah mendukung project ini!🚀"
+          MESSAGE="🚀 Ada push baru ke repository!👤 *User*: $USER\n📂 *Repository*: $REPO\n💬 *Commit Message*: $COMMIT_MESSAGE"
 
           # Mengirim pesan ke Telegram
           curl -s -X POST https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage \
