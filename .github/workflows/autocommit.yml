@@ -1,64 +1,30 @@
+---
 name: Auto Commit
 on:
+  schedule:
+    - cron: 0 0 * * *
   push:
     branches:
-      - master
-  schedule:
-    - cron: '0 7 * * *' # Menjalankan setiap hari pukul 07:00 UTC
-
+      - main
 jobs:
   auto-commit:
     runs-on: ubuntu-latest
-
     steps:
-      # Checkout repository
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v3
-
-      # Debug Status Awal
-      - name: Debug Initial Repository State
-        run: |
-          echo "=== Initial Git Status ==="
-          git status
-          echo "=== Current Branch ==="
-          git branch
-          echo "=== Git Log ==="
-          git log -3
-
-      # Update LAST_UPDATED file
       - name: Update LAST_UPDATED file
         run: |
           echo "=== Modifying LAST_UPDATED File ==="
           echo "Last updated at: $(date -u)" > LAST_UPDATED
           echo "Content of LAST_UPDATED:"
           cat LAST_UPDATED
-
-      # Debug Perubahan yang Dilakukan
-      - name: Debug Changes
+      - name: Configure Git
         run: |
-          echo "=== Git Status After Update ==="
-          git status
-          echo "=== Git Diff ==="
-          git diff
-
-      # Commit Changes
-      - name: Commit Changes
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+      - name: Commit changes
         run: |
-          git config --local user.name "GitHub Actions"
-          git config --local user.email "actions@github.com"
           git add .
-          git commit -m "Auto commit: $(date -u)" || echo "No changes to commit"
-
-      # Debug Sebelum Push
-      - name: Debug Before Push
-        run: |
-          echo "=== Git Status Before Push ==="
-          git status
-          echo "=== Remote Branches ==="
-          git branch -r
-
-      # Push Changes
-      - name: Push Changes
-        run: git push origin HEAD
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git commit -m "Auto update $(date -u)" || echo "No changes to commit"
+      - name: Push changes
+        run: git push
