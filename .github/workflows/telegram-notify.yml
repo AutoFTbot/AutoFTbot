@@ -22,7 +22,7 @@ jobs:
           REPO="${{ github.repository }}"
 
           # Menyusun pesan dengan format Markdown
-          MESSAGE="🎉 *Wow, Ada yang Memberi Star!* 🎉\n\n👤 *User*: $USER\n📂 *Repository*: $REPO\n\n✨ Terima kasih telah mendukung project ini! 🚀"
+          MESSAGE="⭐️ <b>Wow, Ada yang Memberi Star!</b> ⭐️\n\n<b>👤 User:</b> $USER\n<b>📁 Repository:</b> $REPO\n\n<i>✨ Terima kasih telah mendukung project ini!</i>\n<i>🚀</i>"
 
           # Mengirim pesan ke Telegram
           curl -s -X POST https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage \
