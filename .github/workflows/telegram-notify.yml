@@ -1,10 +1,14 @@
-name: Notify Telegram on Push
+name: Notify Telegram on Activity (Push, Star, Fork)
 
 on:
   push:
     branches:
-      - main # Dapat disesuaikan dengan branch yang diinginkan
-  workflow_dispatch: # Untuk menjalankan secara manual (opsional, untuk pengujian)
+      - main  # Dapat disesuaikan dengan branch yang diinginkan
+  watch:
+    types:
+      - started  # Notifikasi saat repositori di-*star*
+  fork:  # Notifikasi saat repositori di-*fork*
+  workflow_dispatch:  # Untuk menjalankan secara manual (opsional, untuk pengujian)
 
 jobs:
   notify-telegram:
@@ -19,13 +23,19 @@ jobs:
           # Ekspansi variabel di dalam shell
           USER="${{ github.actor }}"
           REPO="${{ github.repository }}"
-          COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
 
-          # Menyusun pesan dengan format Markdown
-          MESSAGE="🚀 Ada push baru ke repository!👤 *User*: $USER\n📂 *Repository*: $REPO\n💬 *Commit Message*: $COMMIT_MESSAGE"
+          # Tentukan pesan tergantung pada event yang terjadi
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
+            MESSAGE="✨ Push Baru! ✨\n👤 *User*: $USER\n📂 *Repository*: $REPO\n💬 *Commit Message*: $COMMIT_MESSAGE\n🔄 *Status*: Berhasil"
+          elif [[ "${{ github.event_name }}" == "watch" && "${{ github.event.action }}" == "started" ]]; then
+            MESSAGE="🎉 Repositori Anda di-*star*! 🎉\n👤 *User*: $USER\n📂 *Repository*: $REPO\n✨ Terima kasih telah mendukung project ini! 🚀"
+          elif [[ "${{ github.event_name }}" == "fork" ]]; then
+            MESSAGE="🚀 Repositori Anda di-*fork*! 🚀\n👤 *User*: $USER\n📂 *Repository*: $REPO\n✨ Terima kasih telah tertarik pada project ini! 🚀"
+          fi
 
           # Mengirim pesan ke Telegram
           curl -s -X POST https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage \
             -d chat_id=$TELEGRAM_CHAT_ID \
-            -d parse_mode=Markdown \
+            -d parse_mode=MarkdownV2 \
             -d text="$MESSAGE"
