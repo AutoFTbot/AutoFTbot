@@ -20,13 +20,13 @@ jobs:
           # Ekspansi variabel di dalam shell
           USER="${{ github.actor }}"
           REPO="${{ github.repository }}"
-          
-          # Menyusun pesan dengan format Markdown menggunakan echo untuk menggabungkan variabel
-          MESSAGE="🎉 *Wow, Ada yang Memberi Star!* 🎉
 
-👤 *User*: $(echo $USER)
-📂 *Repository*: $(echo $REPO)"
+          # Menyusun pesan dengan format Markdown
+          MESSAGE="🎉 *Wow, Ada yang Memberi Star!* 🎉\n\n\
+👤 *User*: $USER\n\
+📂 *Repository*: $REPO\n\n\"
 
+          # Mengirim pesan ke Telegram
           curl -s -X POST https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage \
             -d chat_id=$TELEGRAM_CHAT_ID \
             -d parse_mode=Markdown \
