@@ -3,9 +3,9 @@ name: Notify Telegram on Star
 on:
   watch:
     types:
-      - started # Event akan aktif saat ada yang memberi star
+      - started # Event akan terpicu saat repository di-star
 
-  workflow_dispatch: # Menambahkan trigger manual untuk pengujian
+  workflow_dispatch: # Untuk menjalankan secara manual (opsional, untuk pengujian)
 
 jobs:
   notify-telegram:
@@ -19,4 +19,10 @@ jobs:
         run: |
           curl -s -X POST https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage \
             -d chat_id=$TELEGRAM_CHAT_ID \
-            -d text="🎉 Repository Anda baru saja di-*star* oleh ${{ github.actor }}! 🚀"
+            -d parse_mode=Markdown \
+            -d text="🎉 *Wow, Ada yang Memberi Star!* 🎉
+
+👤 *User*: [${{ github.actor }}](https://github.com/${{ github.actor }})
+📂 *Repository*: [${{ github.repository }}](https://github.com/${{ github.repository }})
+
+✨ Terima kasih telah mendukung project ini! 🚀"
