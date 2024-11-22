@@ -1,35 +1,27 @@
+---
 name: Auto Commit
 on:
   schedule:
-    - cron: '0 0 * * *' # Menjalankan setiap hari pada tengah malam UTC
+    - cron: 0 0 * * *
   push:
     branches:
-      - main # Menjalankan pada setiap push ke branch 'main'
-
+      - main
 jobs:
   auto-commit:
     runs-on: ubuntu-latest
-
     steps:
-      # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      # Update LAST_UPDATED file
       - name: Update LAST_UPDATED file
         run: |
           echo "=== Modifying LAST_UPDATED File ==="
           echo "Last updated at: $(date -u)" > LAST_UPDATED
           echo "Content of LAST_UPDATED:"
           cat LAST_UPDATED
-
-      # Configure Git
       - name: Configure Git
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-
-      # Commit changes
+          git config --global user.name "Fighter Tunnel"
+          git config --global user.email "Fightertunnel@github.com"
       - name: Commit changes
         run: |
           git add .
@@ -47,8 +39,6 @@ jobs:
           # Pick a random message from the array
           random_message=${arr[$RANDOM % ${#arr[@]}]}
           git commit -m "$random_message" || echo "No changes to commit"
-
-      # Push changes
       - name: Push changes
         run: git push
         env:
