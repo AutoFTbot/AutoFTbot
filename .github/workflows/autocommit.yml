@@ -1,30 +1,32 @@
-name: Auto commit
+name: Auto Commit
 on:
   push:
     branches:
       - master
   schedule:
-    - cron: 0 7,8,9,10,11 * * *
+    - cron: '0 7 * * *' # Menjalankan setiap hari pukul 07:00 UTC
+
 jobs:
-  auto_commit:
+  auto-commit:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-          fetch-depth: 0
-      - name: Modify LAST_UPDATED file
+      # Checkout repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Modifikasi file
+      - name: Update LAST_UPDATED file
         run: |
-          d=$(date '+%Y-%m-%dT%H:%M:%SZ')
-          echo $d > LAST_UPDATED
-      - name: Commit changes
+          echo "Last updated at: $(date -u)" > LAST_UPDATED
+
+      # Commit dan push
+      - name: Commit and Push Changes
         run: |
-          git config --local user.email "agin@aginvpn.com"
-          git config --local user.name "AutoFTbot"
-          git add -A
-          git commit -m "Update: $d" || echo "Tidak ada perubahan untuk commit"
-      - name: Push Back
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          force: true
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
+          git add .
+          git commit -m "Auto commit: $(date -u)" || echo "Nothing to commit"
+          git push origin HEAD
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
