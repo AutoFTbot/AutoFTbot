@@ -25,9 +25,8 @@ jobs:
           MESSAGE="🎉 *Wow, Ada yang Memberi Star!* 🎉
 
 👤 *User*: $(echo $USER)
-📂 *Repository*: $(echo $REPO)
+📂 *Repository*: $(echo $REPO)"
 
-          # Mengirim pesan ke Telegram
           curl -s -X POST https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage \
             -d chat_id=$TELEGRAM_CHAT_ID \
             -d parse_mode=Markdown \
