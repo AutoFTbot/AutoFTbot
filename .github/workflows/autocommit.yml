@@ -1,4 +1,3 @@
----
 name: Auto Commit
 on:
   schedule:
@@ -12,20 +11,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      
+      - name: Pull latest changes
+        run: git pull origin main --rebase || echo "No changes to pull"
+
       - name: Update LAST_UPDATED file
         run: |
           echo "=== Modifying LAST_UPDATED File ==="
           echo "Last updated at: $(date -u)" > LAST_UPDATED
-          echo "Content of LAST_UPDATED:"
           cat LAST_UPDATED
+      
       - name: Configure Git
         run: |
-          git config --global user.name "Fighter Tunnel"
-          git config --global user.email "Fightertunnel@github.com"
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+      
       - name: Commit changes
         run: |
           git add .
-          # Array of commit messages with emojis
           arr=("chore(bot): 😂 auto commit"
                "chore(bot): 😱 auto commit"
                "chore(bot): 👿 auto commit"
@@ -36,10 +39,15 @@ jobs:
                "chore(bot): 🤖 auto commit"
                "chore(bot): 🟩 auto commit"
                "chore(bot): 👻 auto commit")
-          # Pick a random message from the array
           random_message=${arr[$RANDOM % ${#arr[@]}]}
           git commit -m "$random_message" || echo "No changes to commit"
+      
       - name: Push changes
-        run: git push
+        run: git push origin main --force-with-lease
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Debug logs
+        run: |
+          git status
+          git log -n 3
