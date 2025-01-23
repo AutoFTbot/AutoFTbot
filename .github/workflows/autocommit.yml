@@ -23,8 +23,8 @@ jobs:
       
       - name: Configure Git
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "AutoFTbot"
+          git config --global user.email "agin@aginvpn.com"
       
       - name: Commit changes
         run: |
@@ -43,7 +43,7 @@ jobs:
           git commit -m "$random_message" || echo "No changes to commit"
       
       - name: Push changes
-        run: git push origin main --force-with-lease
+        run: git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
