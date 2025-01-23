@@ -1,8 +1,7 @@
 name: Auto Commit
 on:
   schedule:
-    #- cron: 0 0 * * *
-    - cron: "0 * * * *"
+    - cron: "0 * * * *" # Menjalankan setiap jam
   push:
     branches:
       - main
@@ -25,7 +24,7 @@ jobs:
       - name: Configure Git
         run: |
           git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
       
       - name: Commit changes
         run: |
