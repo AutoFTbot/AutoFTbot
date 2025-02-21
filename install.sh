@@ -16,12 +16,8 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-print_success "Mengunduh script restart.sh..."
-wget -O /root/restart.sh https://raw.githubusercontent.com/AutoFTbot/AutoFTbot/main/restart.sh
-
-chmod +x /root/restart.sh
-
-cat > /etc/systemd/system/restart.service << 'EOL'
+wget -O /root/restart.sh https://raw.githubusercontent.com/AutoFTbot/AutoFTbot/main/restart.sh && chmod +x /root/restart.sh && \
+cat > /etc/systemd/system/restart.service << 'EOL' && \
 [Unit]
 Description=Auto Restart Service Monitor
 After=network.target
@@ -36,10 +32,7 @@ RestartSec=3
 [Install]
 WantedBy=multi-user.target
 EOL
-
-systemctl daemon-reload
-systemctl enable restart
-systemctl start restart
+systemctl daemon-reload && systemctl enable restart && systemctl start restart
 
 if systemctl is-active --quiet restart; then
     print_success "Service restart berhasil diinstall dan dijalankan"
