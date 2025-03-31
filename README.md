@@ -10,7 +10,7 @@
 <div align="center">
   <img src="https://komarev.com/ghpvc/?username=AutoFTbot&label=Visitor&color=7A92B8&style=for-the-badge" alt="Visitor Count" />
   <img src="https://wakatime.com/badge/user/eebb3dd8-d9b2-40de-9b88-6fd6cac99dbc.svg?style=for-the-badge" alt="Wakatime Badge" />
-  <img src="https://img.shields.io/github/followers/AutoFTbot?label=Followers&style=for-the-badge&color=7A92B8" alt="GitHub Followers" />
+  <img src="https://img.shields.io/badge/Followers-1.2k-7A92B8?style=for-the-badge" alt="GitHub Followers" />
 </div>
 
 <div align="center">
@@ -41,16 +41,18 @@
   <img src="https://skillicons.dev/icons?i=python,javascript,react,nodejs,html,css,git" />
 </div>
 
-<div align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=AutoFTbot&theme=radical&hide_border=true" alt="GitHub Streak" />
-</div>
-
 <h2 align="center">📊 Stats</h2>
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=AutoFTbot&show_icons=true&theme=radical&hide_border=true" alt="AutoFTbot's GitHub Stats" />
-  <br>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=AutoFTbot&layout=compact&theme=radical&hide_border=true" alt="Top Languages" />
+  <img src="https://github-readme-stats.vercel.app/api?username=AutoFTbot&show_icons=true&theme=radical&hide_border=true&bg_color=20232a&icon_color=ff0000&title_color=7A92B8&text_color=ffffff&ring_color=ff0000" alt="AutoFTbot's GitHub Stats" />
+</div>
+
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=AutoFTbot&layout=donut&theme=radical&hide_border=true&bg_color=20232a&title_color=7A92B8&text_color=ffffff" alt="Top Languages" />
+</div>
+
+<div align="center">
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=AutoFTbot&theme=radical&hide_border=true&background=20232a&ring=ff0000&fire=ff0000&currStreakLabel=7A92B8&sideLabels=7A92B8&dates=ffffff&currStreakNum=ffffff&sideNums=ffffff" alt="GitHub Streak" />
 </div>
 
 <div align="center">
