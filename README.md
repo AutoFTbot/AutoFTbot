@@ -1,16 +1,16 @@
 # AutoFTbot
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&amp;color=7A92B8&amp;height=100&amp;section=header&text=AutoFTbot&fontSize=90&animation=fadeIn&fontAlignY=38&desc=Malas%20Ngoding%20Adalah%20Jalan%20Ninjaku&descAlignY=51&descAlign=62" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&amp;color=7A92B8&amp;height=200&amp;section=header&text=AutoFTbot&fontSize=90&animation=fadeIn&fontAlignY=35&desc=Malas%20Ngoding%20Adalah%20Jalan%20Ninjaku&descAlignY=55&descAlign=50&descSize=25&fontColor=ffffff&descColor=ffffff&customColorList=7A92B8" />
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=7A92B8&center=true&vCenter=true&width=435&lines=MALAS+NGODING+ADALAH+JALAN+NINJAKU;LAZY+CODING+IS+MY+NINJA+WAY" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=600&size=30&duration=3000&pause=1000&color=7A92B8&center=true&vCenter=true&width=435&lines=MALAS+NGODING;ADALAH+JALAN+NINJAKU" alt="Typing SVG" />
 </p>
 
 <div align="center">
-  <img src="https://komarev.com/ghpvc/?username=AutoFTbot&label=Visitor&color=7A92B8&style=flat-square" alt="Visitor Count" />
-  <img src="https://wakatime.com/badge/user/eebb3dd8-d9b2-40de-9b88-6fd6cac99dbc.svg" alt="Wakatime Badge" />
-  <img src="https://img.shields.io/github/followers/AutoFTbot?label=Followers&style=social" alt="GitHub Followers" />
+  <img src="https://komarev.com/ghpvc/?username=AutoFTbot&label=Visitor&color=7A92B8&style=for-the-badge" alt="Visitor Count" />
+  <img src="https://wakatime.com/badge/user/eebb3dd8-d9b2-40de-9b88-6fd6cac99dbc.svg?style=for-the-badge" alt="Wakatime Badge" />
+  <img src="https://img.shields.io/github/followers/AutoFTbot?label=Followers&style=for-the-badge&color=7A92B8" alt="GitHub Followers" />
 </div>
 
 <div align="center">
