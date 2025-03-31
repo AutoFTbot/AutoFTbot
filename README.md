@@ -52,10 +52,6 @@
 </div>
 
 <div align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=AutoFTbot&theme=radical&hide_border=true&background=20232a&ring=ff0000&fire=ff0000&currStreakLabel=7A92B8&sideLabels=7A92B8&dates=ffffff&currStreakNum=ffffff&sideNums=ffffff" alt="GitHub Streak" />
-</div>
-
-<div align="center">
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=AutoFTbot&theme=redical&hide_border=true&bg_color=20232a&color=ff0000&line=ff0000&point=ff0000&area=true&hide_title=true&area_color=ff000033" alt="Activity Graph" />
 </div>
 
