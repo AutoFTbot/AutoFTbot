@@ -68,6 +68,16 @@
   </a>
 </div>
 
+<br>
+
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=7A92B8&height=100&section=footer" />
+  <img src="https://media.giphy.com/media/M9gbBd9nbDrOTu1Mqx/giphy.gif" width="100">
+</div>
+
+<div align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=500&size=25&pause=1000&color=7A92B8&center=true&vCenter=true&width=435&lines=KEEP+CALM+AND+BE+LAZY;TAPI+TETAP+PRODUKTIF" alt="Typing SVG" />
+</div>
+
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=7A92B8&height=120&section=footer&text=Made%20with%20❤️%20by%20AutoFTbot&fontSize=20&fontColor=ffffff&animation=twinkling&descSize=25&fontAlignY=80" />
 </div>
