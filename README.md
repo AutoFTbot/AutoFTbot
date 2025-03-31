@@ -54,7 +54,7 @@
 </div>
 
 <div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=AutoFTbot&theme=redical&hide_border=true&bg_color=20232a" alt="Activity Graph" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=AutoFTbot&theme=redical&hide_border=true&bg_color=20232a&color=ff0000&line=ff0000&point=ff0000&area=true&hide_title=true&area_color=ff000033" alt="Activity Graph" />
 </div>
 
 <h2 align="center">🤝 Connect With Me</h2>
