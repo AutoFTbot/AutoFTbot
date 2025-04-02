@@ -10,7 +10,6 @@
 <div align="center">
   <img src="https://komarev.com/ghpvc/?username=AutoFTbot&label=Visitor&color=7A92B8&style=for-the-badge" alt="Visitor Count" />
   <img src="https://wakatime.com/badge/user/eebb3dd8-d9b2-40de-9b88-6fd6cac99dbc.svg?style=for-the-badge" alt="Wakatime Badge" />
-  <img src="https://img.shields.io/badge/Followers-1.2k-7A92B8?style=for-the-badge" alt="GitHub Followers" />
 </div>
 
 <div align="center">
