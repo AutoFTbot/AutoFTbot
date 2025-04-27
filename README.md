@@ -1,6 +1,7 @@
 # AutoFTbot
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&amp;color=7A92B8&amp;height=200&amp;section=header&text=AutoFTbot&fontSize=90&animation=fadeIn&fontAlignY=35&desc=Malas%20Ngoding%20Adalah%20Jalan%20Ninjaku&descAlignY=55&descAlign=50&descSize=25&fontColor=ffffff&descColor=ffffff&customColorList=7A92B8" />
+  <img src="https://profile-counter.glitch.me/AutoFTbot/count.svg" alt="Profile Views" />
 </p>
 
 <p align="center">
