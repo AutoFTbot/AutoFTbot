@@ -3,6 +3,10 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&amp;color=7A92B8&amp;height=200&amp;section=header&text=AutoFTbot&fontSize=90&animation=fadeIn&fontAlignY=35&desc=Malas%20Ngoding%20Adalah%20Jalan%20Ninjaku&descAlignY=55&descAlign=50&descSize=25&fontColor=ffffff&descColor=ffffff&customColorList=7A92B8" />
 </p>
 
+<div align="center">
+  <img src="https://profile-counter.glitch.me/AutoFTbot/count.svg" alt="Profile Views" />
+</div>
+
 <p align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=600&size=30&duration=3000&pause=1000&color=7A92B8&center=true&vCenter=true&width=435&lines=MALAS+NGODING;ADALAH+JALAN+NINJAKU" alt="Typing SVG" />
 </p>
@@ -28,12 +32,6 @@
   <strong>AutoFTbot</strong> - Developer yang malas tapi tetap produktif
   <br>
   <i>Karena malas ngoding adalah jalan ninjaku, tapi tetap produktif ya! 😉</i>
-</div>
-
-<h2 align="center">📈 Profile Views</h2>
-
-<div align="center">
-  <img src="https://profile-counter.glitch.me/AutoFTbot/count.svg" alt="Profile Views" />
 </div>
 
 <div align="center">
