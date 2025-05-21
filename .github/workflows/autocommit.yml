@@ -1,4 +1,4 @@
-name: Commit Otomatis
+name: Commit Otomatis Lucu (Basa Sunda)
 
 on:
   schedule:
@@ -32,21 +32,20 @@ jobs:
         run: |
           git add .
           messages=(
-            "chore(bot): 🦄 unicorns nuju gawe magic"
-            "chore(bot): 👽 alien geus nyatujuan"
-            "chore(bot): 🥒 pickles keur bungah"
-            "chore(bot): 🍕 pizza jadi sumber tanaga"
-            "chore(bot): 🐙 octopus keur multitasking"
-            "chore(bot): 🚀 ngaleupaskeun perbaikan"
-            "chore(bot): 🧟‍♂️ zombies geus benerkeun bug"
-            "chore(bot): 🦖 dinosaurus geus beulah bug"
-            "chore(bot): 🍌 kaselip dina kulit cau"
-            "chore(bot): 🤡 keur ngigel jeung kode"
-            "chore(bot): 🛸 diculik ku committers"
-            "chore(bot): 🦥 lelet tapi pasti push"
-            "chore(bot): 🧙‍♂️ mantra tukang sihir dipaké"
-            "chore(bot): 🐉 naga ngabakar bug"
-            "chore(bot): 🥳 pesta commit, hayu babarengan!"
+            "chore(bot): 🐔 hayu nguseup, kode geus beres"
+            "chore(bot): 🦥 bodo amat, asal bisa jalan"
+            "chore(bot): 🍜 ngeunahna mah di debug sakedapan"
+            "chore(bot): 🦄 magic magic magic, teu apal naon ieu"
+            "chore(bot): 🐒 keur ngagantung, kode rada lelet"
+            "chore(bot): 🐸 ngadenge kodena jang, kudu diolah deui"
+            "chore(bot): 🐔 hayu sarerea, urang push babarengan"
+            "chore(bot): 🍩 commit sambil ngopi, aman"
+            "chore(bot): 🦥 asa di hammock, tapi kudu push"
+            "chore(bot): 🐷 leutik tapi kuat, commit na"
+            "chore(bot): 🍉 dahar semangka bari ngoding"
+            "chore(bot): 🐔 hayu gaskeun, bug geus kabur"
+            "chore(bot): 🐍 kode uler, licin pisan"
+            "chore(bot): 🦄 asa keur di negeri dongeng, tapi commit jalan"
           )
 
           message=${messages[$RANDOM % ${#messages[@]}]}
