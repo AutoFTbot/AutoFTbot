@@ -32,20 +32,20 @@ jobs:
         run: |
           git add .
           messages=(
-            "chore(bot): 🐔 hayu nguseup, kode geus beres"
-            "chore(bot): 🦥 bodo amat, asal bisa jalan"
-            "chore(bot): 🍜 ngeunahna mah di debug sakedapan"
-            "chore(bot): 🦄 magic magic magic, teu apal naon ieu"
-            "chore(bot): 🐒 keur ngagantung, kode rada lelet"
-            "chore(bot): 🐸 ngadenge kodena jang, kudu diolah deui"
-            "chore(bot): 🐔 hayu sarerea, urang push babarengan"
-            "chore(bot): 🍩 commit sambil ngopi, aman"
-            "chore(bot): 🦥 asa di hammock, tapi kudu push"
-            "chore(bot): 🐷 leutik tapi kuat, commit na"
-            "chore(bot): 🍉 dahar semangka bari ngoding"
-            "chore(bot): 🐔 hayu gaskeun, bug geus kabur"
-            "chore(bot): 🐍 kode uler, licin pisan"
-            "chore(bot): 🦄 asa keur di negeri dongeng, tapi commit jalan"
+            "AutoFTbot: 🐔 hayu nguseup, kode geus beres"
+            "AutoFTbot: 🦥 bodo amat, asal bisa jalan"
+            "AutoFTbot: 🍜 ngeunahna mah di debug sakedapan"
+            "AutoFTbot: 🦄 magic magic magic, teu apal naon ieu"
+            "AutoFTbot: 🐒 keur ngagantung, kode rada lelet"
+            "AutoFTbot: 🐸 ngadenge kodena jang, kudu diolah deui"
+            "AutoFTbot: 🐔 hayu sarerea, urang push babarengan"
+            "AutoFTbot: 🍩 commit sambil ngopi, aman"
+            "AutoFTbot: 🦥 asa di hammock, tapi kudu push"
+            "AutoFTbot: 🐷 leutik tapi kuat, commit na"
+            "AutoFTbot: 🍉 dahar semangka bari ngoding"
+            "AutoFTbot: 🐔 hayu gaskeun, bug geus kabur"
+            "AutoFTbot: 🐍 kode uler, licin pisan"
+            "AutoFTbot: 🦄 asa keur di negeri dongeng, tapi commit jalan"
           )
 
           message=${messages[$RANDOM % ${#messages[@]}]}
