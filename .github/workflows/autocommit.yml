@@ -1,53 +1,63 @@
-name: Auto Commit
+name: Commit Otomatis
+
 on:
   schedule:
-    - cron: "0 * * * *" # Menjalankan setiap jam
+    - cron: "0 * * * *" # tiap jam
   push:
     branches:
       - main
+
 jobs:
   auto-commit:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      
-      - name: Pull latest changes
-        run: git pull origin main --rebase || echo "No changes to pull"
 
-      - name: Update LAST_UPDATED file
+      - name: Tarik parobahan panganyarna
+        run: git pull origin main --rebase || echo "Teu aya parobahan pikeun ditarik"
+
+      - name: Update file LAST_UPDATED
         run: |
-          echo "=== Modifying LAST_UPDATED File ==="
-          echo "Last updated at: $(date -u)" > LAST_UPDATED
+          echo "=== Ngarobah File LAST_UPDATED ==="
+          echo "Dirobah terakhir: $(date -u)" > LAST_UPDATED
           cat LAST_UPDATED
-      
-      - name: Configure Git
+
+      - name: Konpigurasikeun Git
         run: |
           git config --global user.name "AutoFTbot"
           git config --global user.email "agin@aginvpn.com"
-      
-      - name: Commit changes
+
+      - name: Commit parobahan
         run: |
           git add .
-          arr=("chore(bot): 😂 auto commit"
-               "chore(bot): 😱 auto commit"
-               "chore(bot): 👿 auto commit"
-               "chore(bot): 💩 auto commit"
-               "chore(bot): 🙏 auto commit"
-               "chore(bot): 🙈 auto commit"
-               "chore(bot): 🐐 auto commit"
-               "chore(bot): 🤖 auto commit"
-               "chore(bot): 🟩 auto commit"
-               "chore(bot): 👻 auto commit")
-          random_message=${arr[$RANDOM % ${#arr[@]}]}
-          git commit -m "$random_message" || echo "No changes to commit"
-      
-      - name: Push changes
+          messages=(
+            "chore(bot): 🦄 unicorns nuju gawe magic"
+            "chore(bot): 👽 alien geus nyatujuan"
+            "chore(bot): 🥒 pickles keur bungah"
+            "chore(bot): 🍕 pizza jadi sumber tanaga"
+            "chore(bot): 🐙 octopus keur multitasking"
+            "chore(bot): 🚀 ngaleupaskeun perbaikan"
+            "chore(bot): 🧟‍♂️ zombies geus benerkeun bug"
+            "chore(bot): 🦖 dinosaurus geus beulah bug"
+            "chore(bot): 🍌 kaselip dina kulit cau"
+            "chore(bot): 🤡 keur ngigel jeung kode"
+            "chore(bot): 🛸 diculik ku committers"
+            "chore(bot): 🦥 lelet tapi pasti push"
+            "chore(bot): 🧙‍♂️ mantra tukang sihir dipaké"
+            "chore(bot): 🐉 naga ngabakar bug"
+            "chore(bot): 🥳 pesta commit, hayu babarengan!"
+          )
+
+          message=${messages[$RANDOM % ${#messages[@]}]}
+          git commit -m "$message" || echo "Teu aya parobahan pikeun di-commit"
+
+      - name: Push parobahan
         run: git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Debug logs
+
+      - name: Debug log
         run: |
           git status
           git log -n 3
