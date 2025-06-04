@@ -58,6 +58,8 @@
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=AutoFTbot&theme=redical&hide_border=true&bg_color=20232a&color=ff0000&line=ff0000&point=ff0000&area=true&hide_title=true&area_color=ff000033" alt="Activity Graph" />
 </div>
 
+[![An image of @autoftbot's Holopin badges, which is a link to view their full Holopin profile](https://holopin.me/autoftbot)](https://holopin.io/@autoftbot)
+
 <h2 align="center">🤝 Connect With Me</h2>
 
 <div align="center">
