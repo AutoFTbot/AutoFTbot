@@ -30,6 +30,11 @@ jobs:
             echo 'replace github.com/AutoFTbot/OrderKuota-go => ./' >> OrderKuota-go/go.mod
           fi
 
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
       - name: Generate new QRIS if needed
         env:
           MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
