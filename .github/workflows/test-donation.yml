@@ -1,0 +1,76 @@
+name: Test Donation System
+
+on:
+  workflow_dispatch:  # Allow manual trigger
+  schedule:
+    - cron: '0 */6 * * *'  # Run every 6 hours for testing
+
+jobs:
+  test-donation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.19'
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+
+      - name: Add test donation
+        run: |
+          # Create or read existing donations.json
+          if [ ! -f donations.json ]; then
+            echo "[]" > donations.json
+          fi
+          
+          # Generate test data
+          TEST_REF="TEST-$(date +%s)"
+          TEST_AMOUNT=$((RANDOM % 900000 + 100000))  # Random amount between 100k-1M
+          TEST_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          
+          # Add test donation
+          jq --arg ref "$TEST_REF" \
+             --arg amount "$TEST_AMOUNT" \
+             --arg date "$TEST_DATE" \
+             '. += [{"amount": ($amount|tonumber), "reference": $ref, "status": "PENDING", "date": $date}]' \
+             donations.json > donations.json.tmp
+          mv donations.json.tmp donations.json
+          
+          # Commit and push changes
+          git add donations.json
+          git commit -m "test: Add test donation $TEST_REF"
+          git push
+
+      - name: Check payment status
+        env:
+          MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
+          API_KEY: ${{ secrets.API_KEY }}
+          BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
+        run: |
+          # Get the test donation we just added
+          TEST_DONATION=$(jq -r '.[-1]' donations.json)
+          REFERENCE=$(echo $TEST_DONATION | jq -r '.reference')
+          AMOUNT=$(echo $TEST_DONATION | jq -r '.amount')
+          
+          # Check payment status
+          PAID=$(go run donation/check-payment.go "$REFERENCE" "$AMOUNT")
+          
+          if [ "$PAID" = "true" ]; then
+            # Update donation status
+            go run donation/update-status.go "$REFERENCE" "PAID"
+            
+            # Commit the update
+            git add donations.json
+            git commit -m "test: Update test donation $REFERENCE to PAID"
+            git push
+            
+            # Create test issue
+            gh issue create \
+              --title "Test Payment Received: Rp $AMOUNT" \
+              --body "This is a test donation.\n\nAmount: Rp $AMOUNT\nReference: $REFERENCE"
+          fi 
