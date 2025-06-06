@@ -21,22 +21,14 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.19'
+          go-version: '1.21'
 
       - name: Generate new QRIS if needed
-        env:
-          MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
-          API_KEY: ${{ secrets.API_KEY }}
-          BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
         run: |
-          # Generate QRIS baru jika tidak ada donasi PENDING
           if [ ! -f donations.json ] || ! jq -e '.[0] | select(.status == "PENDING")' donations.json; then
-            cd OrderKuota-go
-            go run ../donation/generate-qris.go
-            cd ..
+            go run generate-qris.go
             git add donations.json
             git commit -m "Generate new QRIS"
-            git pull --rebase origin main
             git push
           fi
 
@@ -47,20 +39,18 @@ jobs:
           BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
         run: |
           cd OrderKuota-go
-          AMOUNT=$(jq -r '.[0].amount' ../donations.json)
-          REFERENCE=$(jq -r '.[0].reference' ../donations.json)
-          PAID=$(go run ../donation/check-payment.go "$REFERENCE" "$AMOUNT")
+          AMOUNT=$(jq -r '.[0].amount' ../AutoFTbot/donations.json)
+          REFERENCE=$(jq -r '.[0].reference' ../AutoFTbot/donations.json)
+          PAID=$(go run ../AutoFTbot/donation/check-payment.go "$REFERENCE" "$AMOUNT")
           if [ "$PAID" = "true" ]; then
-            go run ../donation/update-status.go "$REFERENCE" "PAID"
-            cd ..
-            git add donations.json
+            go run ../AutoFTbot/donation/update-status.go "$REFERENCE" "PAID"
+            git add ../AutoFTbot/donations.json
             git commit -m "Update donation $REFERENCE to PAID"
-            git pull --rebase origin main
             git push
           fi
 
-      # (Opsional) Update README dengan QR baru
-      # - name: Update README with QRIS
-      #   run: |
-      #     # Generate QR code image dari QR string di donations.json
-      #     # Update README.md dengan gambar QR baru
+      - name: Update README with QRIS
+        run: |
+          QR_STRING=$(jq -r '.[0].qr_string' donations.json)
+          # Generate QR code image (pakai Go atau tool lain)
+          # Update README.md dengan QR baru
