@@ -35,14 +35,14 @@ jobs:
 
       - name: Debug Gist ID dan File
         run: |
-          echo "[DEBUG] GIST_ID: ${{ secrets.GIST_ID }}"
+          echo "[DEBUG] GIST_ID: 86a13cfb221fc094c35b4320e102d759"
           echo "[DEBUG] File yang akan diupdate: total-donations.json"
 
       - name: Update README badge
         uses: schneegans/dynamic-badges-action@v1.5.0
         with:
           auth: ${{ secrets.GIST_SECRET }}
-          gistID: ${{ secrets.GIST_ID }}
+          gistID: 86a13cfb221fc094c35b4320e102d759
           filename: total-donations.json
           label: 'Total Donasi'
           message: ${{ format('Rp {0}', steps.total.outputs.total) }}
