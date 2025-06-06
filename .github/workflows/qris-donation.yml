@@ -44,7 +44,7 @@ jobs:
           cd OrderKuota-go
           go run ../donation/generate-qris.go
           cd ..
-          git add donations.json
+          git add donations.json qris.png
           git commit -m "Generate new QRIS" || true
           git pull --rebase origin main
           git push
