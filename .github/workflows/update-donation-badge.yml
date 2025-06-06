@@ -23,20 +23,20 @@ jobs:
         run: |
           if [ -f donations.json ]; then
             TOTAL=$(go run donation/calculate-total.go)
-            echo "::set-output name=total::$TOTAL"
+            echo "total=$TOTAL" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=total::0"
+            echo "total=0" >> $GITHUB_OUTPUT
           fi
           
       - name: Update README badge
         uses: schneegans/dynamic-badges-action@v1.5.0
         with:
           auth: ${{ secrets.GIST_SECRET }}
-          gistID: 86a13cfb221fc094c35b4320e102d759
+          gistID: ${{ secrets.GIST_ID }}
           filename: total-donations.json
-          label: Total Donations
-          message: Rp ${{ steps.total.outputs.total }}
-          color: blue
+          label: 'Total Donasi'
+          message: ${{ format('Rp {0}', steps.total.outputs.total) }}
+          color: green
           
       - name: Commit and push if changed
         run: |
