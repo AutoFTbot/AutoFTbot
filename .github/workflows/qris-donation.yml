@@ -98,15 +98,18 @@ jobs:
           STATUS=$(jq -r '.[0].status' donations.json)
 
           echo "<!-- QRIS_START -->" > qris_section.md
-          echo "## QRIS Donasi Otomatis" >> qris_section.md
+          echo "<div align=\"center\">" >> qris_section.md
           echo "" >> qris_section.md
-          echo "![QRIS](qris.png)" >> qris_section.md
+          echo "<h2>QRIS Donasi Otomatis</h2>" >> qris_section.md
           echo "" >> qris_section.md
-          echo "**Status:** $STATUS" >> qris_section.md
+          echo "<img src=\"qris.png\" alt=\"QRIS\" width=\"300\" />" >> qris_section.md
           echo "" >> qris_section.md
-          echo "**Nominal:** Rp $AMOUNT" >> qris_section.md
+          echo "<br><br>" >> qris_section.md
+          echo "<strong>Status:</strong> $STATUS  " >> qris_section.md
+          echo "<strong>Nominal:</strong> Rp $AMOUNT  " >> qris_section.md
+          echo "<strong>Reference:</strong> $REFERENCE" >> qris_section.md
           echo "" >> qris_section.md
-          echo "**Reference:** $REFERENCE" >> qris_section.md
+          echo "</div>" >> qris_section.md
           echo "<!-- QRIS_END -->" >> qris_section.md
 
           if grep -q '<!-- QRIS_START -->' README.md && grep -q '<!-- QRIS_END -->' README.md; then
@@ -120,7 +123,7 @@ jobs:
           rm qris_section.md
 
           git add README.md
-          git commit -m "Update README with latest QRIS via marker" || true
+          git commit -m "Update README with centered QRIS via marker" || true
           git pull --rebase origin main
           git push
 
@@ -132,4 +135,4 @@ jobs:
           AMOUNT=$(jq -r '.[0].amount' donations.json)
           REFERENCE=$(jq -r '.[0].reference' donations.json)
           DATE=$(jq -r '.[0].date' donations.json)
-          gh issue create --title "Donasi PAID: $AMOUNT" --body "Qris Donasi dengan reference $REFERENCE Keluar pada $DATE."
+          gh issue create --title "Donasi PAID: $AMOUNT" --body "Qriss Donasi dengan reference $REFERENCE sudah keluar pada $DATE."
