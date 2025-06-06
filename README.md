@@ -39,7 +39,6 @@
 </div>
 
 <!-- QRIS_START -->
-<!-- QRIS_START -->
 ## QRIS Donasi Otomatis
 
 ![QRIS](qris.png)
@@ -49,11 +48,6 @@
 **Nominal:** Rp 5085
 
 **Reference:** QRIS-1749192631
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
 <!-- QRIS_END -->
 
 <h2 align="center">🎯 Skills</h2>
