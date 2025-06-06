@@ -47,9 +47,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Generate amount random 1-99
+	// Generate amount 5000 + random 1-99
 	rand.Seed(time.Now().UnixNano())
-	amount := rand.Intn(99) + 1
+	amount := 5000 + rand.Intn(99) + 1
 	reference := fmt.Sprintf("QRIS-%d", time.Now().Unix())
 
 	data := qris.QRISData{
