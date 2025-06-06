@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/AutoFTbot/OrderKuota-go/qris"
@@ -71,8 +72,13 @@ func main() {
 		QRString:  qrString,
 	}
 
-	// Simpan ke donations.json (replace seluruh isi dengan donasi baru)
-	file, err := os.Create("donations.json")
+	// Pastikan file selalu di root repo
+	scriptDir, _ := os.Getwd()
+	rootDir := filepath.Dir(scriptDir)
+	donationsPath := filepath.Join(rootDir, "donations.json")
+	qrisPngPath := filepath.Join(rootDir, "qris.png")
+
+	file, err := os.Create(donationsPath)
 	if err != nil {
 		fmt.Println("[ERROR] Failed to create donations.json:", err)
 		os.Exit(1)
@@ -85,6 +91,7 @@ func main() {
 		fmt.Println("[ERROR] Failed to write donations.json:", err)
 		os.Exit(1)
 	}
+	fmt.Println("[SUCCESS] donations.json written at", donationsPath)
 
 	// Generate QR code PNG di root
 	qrCode, err := qr.GenerateQRCode(data)
@@ -92,9 +99,9 @@ func main() {
 		fmt.Println("[ERROR] Failed to generate QR code image:", err)
 		os.Exit(1)
 	}
-	if err := qrCode.WriteFile(256, "../qris.png"); err != nil {
+	if err := qrCode.WriteFile(256, qrisPngPath); err != nil {
 		fmt.Println("[ERROR] Failed to save QR code image:", err)
 		os.Exit(1)
 	}
-	fmt.Println("[SUCCESS] QR code image saved as qris.png in root directory!")
+	fmt.Println("[SUCCESS] QR code image saved as", qrisPngPath)
 }
