@@ -97,7 +97,7 @@ jobs:
           REFERENCE=$(jq -r '.[0].reference' donations.json)
           STATUS=$(jq -r '.[0].status' donations.json)
 
-          QRIS_SECTION=$(cat <<EOF
+          cat <<EOF > qris_section.md
 <!-- QRIS_START -->
 ## QRIS Donasi Otomatis
 
@@ -110,17 +110,16 @@ jobs:
 **Reference:** $REFERENCE
 <!-- QRIS_END -->
 EOF
-)
 
           if grep -q '<!-- QRIS_START -->' README.md && grep -q '<!-- QRIS_END -->' README.md; then
-            # Hapus baris di antara marker
             sed -i '/<!-- QRIS_START -->/,/<!-- QRIS_END -->/{//!d}' README.md
-            # Tambahkan konten baru di antara marker
-            sed -i "/<!-- QRIS_START -->/r /dev/stdin" README.md <<< "$QRIS_SECTION"
+            sed -i '/<!-- QRIS_START -->/r qris_section.md' README.md
           else
-            # Kalau belum ada marker, tambahkan di akhir README
-            echo "$QRIS_SECTION" >> README.md
+            echo "" >> README.md
+            cat qris_section.md >> README.md
           fi
+
+          rm qris_section.md
 
           git add README.md
           git commit -m "Update README with latest QRIS via marker" || true
