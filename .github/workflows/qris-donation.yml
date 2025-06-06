@@ -97,19 +97,17 @@ jobs:
           REFERENCE=$(jq -r '.[0].reference' donations.json)
           STATUS=$(jq -r '.[0].status' donations.json)
 
-          cat <<EOF > qris_section.md
-<!-- QRIS_START -->
-## QRIS Donasi Otomatis
-
-![QRIS](qris.png)
-
-**Status:** $STATUS
-
-**Nominal:** Rp $AMOUNT
-
-**Reference:** $REFERENCE
-<!-- QRIS_END -->
-EOF
+          echo "<!-- QRIS_START -->" > qris_section.md
+          echo "## QRIS Donasi Otomatis" >> qris_section.md
+          echo "" >> qris_section.md
+          echo "![QRIS](qris.png)" >> qris_section.md
+          echo "" >> qris_section.md
+          echo "**Status:** $STATUS" >> qris_section.md
+          echo "" >> qris_section.md
+          echo "**Nominal:** Rp $AMOUNT" >> qris_section.md
+          echo "" >> qris_section.md
+          echo "**Reference:** $REFERENCE" >> qris_section.md
+          echo "<!-- QRIS_END -->" >> qris_section.md
 
           if grep -q '<!-- QRIS_START -->' README.md && grep -q '<!-- QRIS_END -->' README.md; then
             sed -i '/<!-- QRIS_START -->/,/<!-- QRIS_END -->/{//!d}' README.md
