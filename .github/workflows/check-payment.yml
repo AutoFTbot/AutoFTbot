@@ -1,0 +1,50 @@
+name: Check Payment Status
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Run every 5 minutes
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  check-payment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.19'
+          
+      - name: Check payment status
+        env:
+          MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
+          API_KEY: ${{ secrets.API_KEY }}
+          BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
+        run: |
+          # Read pending donations
+          if [ -f donations.json ]; then
+            # Get pending donations
+            PENDING_DONATIONS=$(go run donation/check-pending.go)
+            
+            if [ ! -z "$PENDING_DONATIONS" ]; then
+              # Check each pending donation
+              echo "$PENDING_DONATIONS" | while read -r line; do
+                REFERENCE=$(echo $line | jq -r '.reference')
+                AMOUNT=$(echo $line | jq -r '.amount')
+                
+                # Check payment status
+                PAID=$(go run donation/check-payment.go "$REFERENCE" "$AMOUNT")
+                
+                if [ "$PAID" = "true" ]; then
+                  # Update donation status
+                  go run donation/update-status.go "$REFERENCE" "PAID"
+                  
+                  # Create issue for successful payment
+                  gh issue create \
+                    --title "Payment Received: Rp $AMOUNT" \
+                    --body "Thank you for your donation! 🎉\n\nAmount: Rp $AMOUNT\nReference: $REFERENCE"
+                fi
+              done
+            fi
+          fi 
