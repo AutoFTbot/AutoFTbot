@@ -31,12 +31,13 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
         run: |
-          AMOUNT=$(jq -r '.[0].amount' donations.json)
-          REFERENCE=$(jq -r '.[0].reference' donations.json)
-          PAID=$(go run donation/check-payment.go "$REFERENCE" "$AMOUNT")
+          cd OrderKuota-go
+          AMOUNT=$(jq -r '.[0].amount' ../AutoFTbot/donations.json)
+          REFERENCE=$(jq -r '.[0].reference' ../AutoFTbot/donations.json)
+          PAID=$(go run ../AutoFTbot/donation/check-payment.go "$REFERENCE" "$AMOUNT")
           if [ "$PAID" = "true" ]; then
-            go run donation/update-status.go "$REFERENCE" "PAID"
-            git add donations.json
+            go run ../AutoFTbot/donation/update-status.go "$REFERENCE" "PAID"
+            git add ../AutoFTbot/donations.json
             git commit -m "Update donation $REFERENCE to PAID"
             git push
           fi
