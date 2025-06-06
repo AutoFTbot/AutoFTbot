@@ -48,10 +48,11 @@
 
 <br><br>
 <strong>Status:</strong> PENDING  
-<strong>Nominal:</strong> Rp 11  
-<strong>Reference:</strong> QRIS-1749190780
+<strong>Nominal:</strong> Rp 5085  
+<strong>Reference:</strong> QRIS-1749192631
 
 </div>
+<!-- QRIS_END -->
 <!-- QRIS_END -->
 <!-- QRIS_END -->
 <!-- QRIS_END -->
