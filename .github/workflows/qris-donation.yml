@@ -1,0 +1,48 @@
+name: QRIS Donation
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # setiap 5 menit
+  workflow_dispatch:
+
+jobs:
+  qris-donation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.19'
+
+      - name: Generate new QRIS if needed
+        run: |
+          if [ ! -f donations.json ] || ! jq -e '.[0] | select(.status == "PENDING")' donations.json; then
+            go run generate-qris.go
+            git add donations.json
+            git commit -m "Generate new QRIS"
+            git push
+          fi
+
+      - name: Check payment status
+        env:
+          MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
+          API_KEY: ${{ secrets.API_KEY }}
+          BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
+        run: |
+          AMOUNT=$(jq -r '.[0].amount' donations.json)
+          REFERENCE=$(jq -r '.[0].reference' donations.json)
+          PAID=$(go run donation/check-payment.go "$REFERENCE" "$AMOUNT")
+          if [ "$PAID" = "true" ]; then
+            go run donation/update-status.go "$REFERENCE" "PAID"
+            git add donations.json
+            git commit -m "Update donation $REFERENCE to PAID"
+            git push
+          fi
+
+      - name: Update README with QRIS
+        run: |
+          QR_STRING=$(jq -r '.[0].qr_string' donations.json)
+          # Generate QR code image (pakai Go atau tool lain)
+          # Update README.md dengan QR baru
