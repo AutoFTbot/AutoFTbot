@@ -9,7 +9,14 @@ jobs:
   qris-donation:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout AutoFTbot
+        uses: actions/checkout@v2
+
+      - name: Checkout OrderKuota-go
+        uses: actions/checkout@v2
+        with:
+          repository: AutoFTbot/OrderKuota-go
+          path: OrderKuota-go
 
       - name: Set up Go
         uses: actions/setup-go@v2
