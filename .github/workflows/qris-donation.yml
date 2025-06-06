@@ -2,7 +2,7 @@ name: QRIS Donation
 
 on:
   schedule:
-    - cron: '*/1 * * * *' # setiap 5 menit
+    - cron: '*/5 * * * *' # setiap 5 menit
   workflow_dispatch:
 
 jobs:
@@ -41,7 +41,6 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
         run: |
-          # Jika donations.json kosong atau tidak ada donasi PENDING/PAID, generate baru
           if [ ! -s donations.json ] || ! jq -e '.[0] | select(.status == "PENDING" or .status == "PAID")' donations.json; then
             echo "[INFO] Generating new QRIS..."
             cd OrderKuota-go
@@ -92,22 +91,39 @@ jobs:
           git pull --rebase origin main
           git push
 
-      - name: Update README with QRIS
+      - name: Update README with QRIS using marker
         run: |
           AMOUNT=$(jq -r '.[0].amount' donations.json)
           REFERENCE=$(jq -r '.[0].reference' donations.json)
           STATUS=$(jq -r '.[0].status' donations.json)
-          echo "## QRIS Donasi Otomatis" > README.md
-          echo "" >> README.md
-          echo "![QRIS](qris.png)" >> README.md
-          echo "" >> README.md
-          echo "**Status:** $STATUS" >> README.md
-          echo "" >> README.md
-          echo "**Nominal:** Rp $AMOUNT" >> README.md
-          echo "" >> README.md
-          echo "**Reference:** $REFERENCE" >> README.md
+
+          QRIS_SECTION=$(cat <<EOF
+<!-- QRIS_START -->
+## QRIS Donasi Otomatis
+
+![QRIS](qris.png)
+
+**Status:** $STATUS
+
+**Nominal:** Rp $AMOUNT
+
+**Reference:** $REFERENCE
+<!-- QRIS_END -->
+EOF
+)
+
+          if grep -q '<!-- QRIS_START -->' README.md && grep -q '<!-- QRIS_END -->' README.md; then
+            # Hapus baris di antara marker
+            sed -i '/<!-- QRIS_START -->/,/<!-- QRIS_END -->/{//!d}' README.md
+            # Tambahkan konten baru di antara marker
+            sed -i "/<!-- QRIS_START -->/r /dev/stdin" README.md <<< "$QRIS_SECTION"
+          else
+            # Kalau belum ada marker, tambahkan di akhir README
+            echo "$QRIS_SECTION" >> README.md
+          fi
+
           git add README.md
-          git commit -m "Update README with latest QRIS" || true
+          git commit -m "Update README with latest QRIS via marker" || true
           git pull --rebase origin main
           git push
 
@@ -120,10 +136,3 @@ jobs:
           REFERENCE=$(jq -r '.[0].reference' donations.json)
           DATE=$(jq -r '.[0].date' donations.json)
           gh issue create --title "Donasi PAID: $AMOUNT" --body "Donasi dengan reference $REFERENCE sudah dibayar pada $DATE."
-
-      # (Opsional) Update README dengan QRIS
-      # - name: Update README with QRIS
-      #   run: |
-      #     QR_STRING=$(jq -r '.[0].qr_string' donations.json)
-      #     # Generate QR code image dari QR string di donations.json
-      #     # Update README.md dengan gambar QR baru
