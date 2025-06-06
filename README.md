@@ -41,6 +41,17 @@
 <h2 align="center">🎯 Skills</h2>
 
 <!-- QRIS_START -->
+<!-- QRIS_START -->
+## QRIS Donasi Otomatis
+
+![QRIS](qris.png)
+
+**Status:** PENDING
+
+**Nominal:** Rp 11
+
+**Reference:** QRIS-1749190780
+<!-- QRIS_END -->
 <!-- QRIS_END -->
 
 <div align="center">
