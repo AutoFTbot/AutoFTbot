@@ -113,6 +113,8 @@ jobs:
 
       - name: Notify via GitHub Issue
         if: steps.check_payment.outputs.paid == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           AMOUNT=$(jq -r '.[0].amount' donations.json)
           REFERENCE=$(jq -r '.[0].reference' donations.json)
