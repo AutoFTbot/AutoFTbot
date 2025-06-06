@@ -9,8 +9,15 @@ jobs:
   test-donation:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      
+      - name: Checkout AutoFTbot
+        uses: actions/checkout@v2
+
+      - name: Checkout OrderKuota-go
+        uses: actions/checkout@v2
+        with:
+          repository: AutoFTbot/OrderKuota-go
+          path: OrderKuota-go
+
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
@@ -52,7 +59,7 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
         run: |
-          cd ../OrderKuota-go
+          cd OrderKuota-go
           TEST_DONATION=$(jq -r '.[-1]' ../AutoFTbot/donations.json)
           REFERENCE=$(echo $TEST_DONATION | jq -r '.reference')
           AMOUNT=$(echo $TEST_DONATION | jq -r '.amount')
