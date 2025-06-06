@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 type DonationData struct {
@@ -23,8 +24,12 @@ func main() {
 	reference := os.Args[1]
 	newStatus := os.Args[2]
 
+	scriptDir, _ := os.Getwd()
+	rootDir := filepath.Dir(scriptDir)
+	donationsPath := filepath.Join(rootDir, "donations.json")
+
 	// Read donations file
-	data, err := os.ReadFile("donations.json")
+	data, err := os.ReadFile(donationsPath)
 	if err != nil {
 		return
 	}
@@ -48,7 +53,7 @@ func main() {
 		return
 	}
 
-	if err := os.WriteFile("donations.json", data, 0644); err != nil {
+	if err := os.WriteFile(donationsPath, data, 0644); err != nil {
 		return
 	}
 
