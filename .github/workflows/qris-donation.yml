@@ -17,6 +17,7 @@ jobs:
         with:
           repository: AutoFTbot/OrderKuota-go
           path: OrderKuota-go
+          ref: main  # atau ref: v1.0.1 jika ingin tag tertentu
 
       - name: Set up Go
         uses: actions/setup-go@v2
