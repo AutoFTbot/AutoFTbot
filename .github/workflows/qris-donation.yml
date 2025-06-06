@@ -26,7 +26,9 @@ jobs:
       - name: Generate new QRIS if needed
         run: |
           if [ ! -f donations.json ] || ! jq -e '.[0] | select(.status == "PENDING")' donations.json; then
-            go run donation/generate-qris.go
+            cd OrderKuota-go
+            go run ../donation/generate-qris.go
+            cd ..
             git add donations.json
             git commit -m "Generate new QRIS"
             git push
