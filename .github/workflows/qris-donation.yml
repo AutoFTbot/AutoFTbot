@@ -70,8 +70,9 @@ jobs:
           if [ "$PAID" = "true" ]; then
             go run ../donation/update-status.go "$REFERENCE" "PAID"
             cd ..
+            cat donations.json
             git add donations.json
-            git commit -m "Update donation $REFERENCE to PAID"
+            git commit -m "Update donation $REFERENCE to PAID" || true
             git pull --rebase origin main
             git push
           fi
