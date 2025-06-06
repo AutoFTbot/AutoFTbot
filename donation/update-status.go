@@ -51,4 +51,13 @@ func main() {
 	if err := os.WriteFile("donations.json", data, 0644); err != nil {
 		return
 	}
+
+	// Print updated donation as JSON (for notification)
+	for _, d := range donations {
+		if d.Reference == reference {
+			json, _ := json.Marshal(d)
+			fmt.Println(string(json))
+			break
+		}
+	}
 } 
