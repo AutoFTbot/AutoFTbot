@@ -32,7 +32,7 @@ jobs:
         uses: schneegans/dynamic-badges-action@v1.5.0
         with:
           auth: ${{ secrets.GIST_SECRET }}
-          gistID: ${{ secrets.GIST_ID }}
+          gistID: 86a13cfb221fc094c35b4320e102d759
           filename: total-donations.json
           label: 'Total Donasi'
           message: ${{ format('Rp {0}', steps.total.outputs.total) }}
