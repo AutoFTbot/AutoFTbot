@@ -35,24 +35,25 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-      - name: Force Generate new QRIS (debug)
+      - name: Generate new QRIS if needed
         env:
           MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
           API_KEY: ${{ secrets.API_KEY }}
           BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
         run: |
-          echo "[DEBUG] Remove old donations.json if exists"
-          rm -f donations.json
-          cd OrderKuota-go
-          echo "[DEBUG] Run generate-qris.go"
-          go run ../donation/generate-qris.go
-          cd ..
-          echo "[DEBUG] File donations.json after generate:"
-          cat donations.json
-          git add donations.json qris.png
-          git commit -m "Force generate new QRIS (debug)" || true
-          git pull --rebase origin main
-          git push
+          # Jika donations.json kosong atau tidak ada donasi PENDING/PAID, generate baru
+          if [ ! -s donations.json ] || ! jq -e '.[0] | select(.status == "PENDING" or .status == "PAID")' donations.json; then
+            echo "[INFO] Generating new QRIS..."
+            cd OrderKuota-go
+            go run ../donation/generate-qris.go
+            cd ..
+            git add donations.json qris.png
+            git commit -m "Generate new QRIS" || true
+            git pull --rebase origin main
+            git push
+          else
+            echo "[INFO] donations.json sudah terisi dan status PENDING/PAID, tidak generate baru."
+          fi
 
       - name: Check payment status
         id: check_payment
@@ -66,7 +67,6 @@ jobs:
           REFERENCE=$(jq -r '.[0].reference' ../donations.json)
           PAID=$(go run ../donation/check-payment.go "$REFERENCE" "$AMOUNT")
           echo "paid=$PAID" >> $GITHUB_OUTPUT
-          echo "[DEBUG] PAID: $PAID"
           if [ "$PAID" = "true" ]; then
             go run ../donation/update-status.go "$REFERENCE" "PAID"
             cd ..
