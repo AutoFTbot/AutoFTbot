@@ -21,16 +21,28 @@ type DonationData struct {
 
 func main() {
 	// Ambil konfigurasi dari environment variable
-	config := qris.QRISConfig{
-		MerchantID:   os.Getenv("MERCHANT_ID"),
-		APIKey:       os.Getenv("API_KEY"),
-		BaseQrString: os.Getenv("BASE_QR_STRING"),
+	merchantID := os.Getenv("MERCHANT_ID")
+	apiKey := os.Getenv("API_KEY")
+	baseQrString := os.Getenv("BASE_QR_STRING")
+
+	if merchantID == "" || apiKey == "" || baseQrString == "" {
+		fmt.Println("[ERROR] MERCHANT_ID, API_KEY, dan BASE_QR_STRING harus di-set di environment variable!")
+		fmt.Printf("MERCHANT_ID: %q\nAPI_KEY: %q\nBASE_QR_STRING: %q\n", merchantID, apiKey, baseQrString)
+		os.Exit(1)
 	}
+
+	config := qris.QRISConfig{
+		MerchantID:   merchantID,
+		APIKey:       apiKey,
+		BaseQrString: baseQrString,
+	}
+
+	fmt.Printf("[INFO] Config: %+v\n", config)
 
 	// Cek error inisialisasi QRIS
 	qr, err := qris.NewQRIS(config)
 	if err != nil {
-		fmt.Println("Failed to initialize QRIS:", err)
+		fmt.Println("[ERROR] Failed to initialize QRIS:", err)
 		os.Exit(1)
 	}
 
@@ -46,7 +58,7 @@ func main() {
 
 	qrString, err := qr.GetQRISString(data)
 	if err != nil {
-		fmt.Println("Failed to generate QRIS string:", err)
+		fmt.Println("[ERROR] Failed to generate QRIS string:", err)
 		os.Exit(1)
 	}
 
@@ -62,7 +74,7 @@ func main() {
 	// Simpan ke donations.json (replace seluruh isi dengan donasi baru)
 	file, err := os.Create("donations.json")
 	if err != nil {
-		fmt.Println("Failed to create donations.json:", err)
+		fmt.Println("[ERROR] Failed to create donations.json:", err)
 		os.Exit(1)
 	}
 	defer file.Close()
@@ -70,9 +82,9 @@ func main() {
 	encoder := json.NewEncoder(file)
 	encoder.SetIndent("", "  ")
 	if err := encoder.Encode([]DonationData{donation}); err != nil {
-		fmt.Println("Failed to write donations.json:", err)
+		fmt.Println("[ERROR] Failed to write donations.json:", err)
 		os.Exit(1)
 	}
 
-	fmt.Println("QRIS generated successfully!")
+	fmt.Println("[SUCCESS] QRIS generated successfully!")
 }
