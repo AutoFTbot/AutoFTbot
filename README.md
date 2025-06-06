@@ -4,6 +4,6 @@
 
 **Status:** PENDING
 
-**Nominal:** Rp 95
+**Nominal:** Rp 35
 
-**Reference:** QRIS-1749189734
+**Reference:** QRIS-1749189797
