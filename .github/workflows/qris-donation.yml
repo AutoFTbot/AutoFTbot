@@ -31,16 +31,18 @@ jobs:
           fi
 
       - name: Generate new QRIS if needed
+        env:
+          MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
+          API_KEY: ${{ secrets.API_KEY }}
+          BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
         run: |
-          if [ ! -f donations.json ] || ! jq -e '.[0] | select(.status == "PENDING")' donations.json; then
-            cd OrderKuota-go
-            go run ../donation/generate-qris.go
-            cd ..
-            git add donations.json
-            git commit -m "Generate new QRIS"
-            git pull --rebase origin main
-            git push
-          fi
+          cd OrderKuota-go
+          go run ../donation/generate-qris.go
+          cd ..
+          git add donations.json
+          git commit -m "Generate new QRIS"
+          git pull --rebase origin main
+          git push
 
       - name: Check payment status
         env:
