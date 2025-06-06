@@ -24,6 +24,12 @@ jobs:
         with:
           go-version: '1.21'
 
+      - name: Add replace directive to go.mod
+        run: |
+          if ! grep -q 'replace github.com/AutoFTbot/OrderKuota-go' OrderKuota-go/go.mod; then
+            echo 'replace github.com/AutoFTbot/OrderKuota-go => .' >> OrderKuota-go/go.mod
+          fi
+
       - name: Generate new QRIS if needed
         run: |
           if [ ! -f donations.json ] || ! jq -e '.[0] | select(.status == "PENDING")' donations.json; then
@@ -32,6 +38,7 @@ jobs:
             cd ..
             git add donations.json
             git commit -m "Generate new QRIS"
+            git pull --rebase origin main
             git push
           fi
 
@@ -47,13 +54,16 @@ jobs:
           PAID=$(go run ../donation/check-payment.go "$REFERENCE" "$AMOUNT")
           if [ "$PAID" = "true" ]; then
             go run ../donation/update-status.go "$REFERENCE" "PAID"
-            git add ../donations.json
+            cd ..
+            git add donations.json
             git commit -m "Update donation $REFERENCE to PAID"
+            git pull --rebase origin main
             git push
           fi
 
-      - name: Update README with QRIS
-        run: |
-          QR_STRING=$(jq -r '.[0].qr_string' donations.json)
-          # Generate QR code image (pakai Go atau tool lain)
-          # Update README.md dengan QR baru
+      # (Opsional) Update README dengan QRIS
+      # - name: Update README with QRIS
+      #   run: |
+      #     QR_STRING=$(jq -r '.[0].qr_string' donations.json)
+      #     # Generate QR code image dari QR string di donations.json
+      #     # Update README.md dengan gambar QR baru
