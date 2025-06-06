@@ -50,6 +50,7 @@ jobs:
           git push
 
       - name: Check payment status
+        id: check_payment
         env:
           MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
           API_KEY: ${{ secrets.API_KEY }}
@@ -59,6 +60,7 @@ jobs:
           AMOUNT=$(jq -r '.[0].amount' ../donations.json)
           REFERENCE=$(jq -r '.[0].reference' ../donations.json)
           PAID=$(go run ../donation/check-payment.go "$REFERENCE" "$AMOUNT")
+          echo "paid=$PAID" >> $GITHUB_OUTPUT
           if [ "$PAID" = "true" ]; then
             go run ../donation/update-status.go "$REFERENCE" "PAID"
             cd ..
@@ -67,6 +69,14 @@ jobs:
             git pull --rebase origin main
             git push
           fi
+
+      - name: Notify via GitHub Issue
+        if: steps.check_payment.outputs.paid == 'true'
+        run: |
+          AMOUNT=$(jq -r '.[0].amount' donations.json)
+          REFERENCE=$(jq -r '.[0].reference' donations.json)
+          DATE=$(jq -r '.[0].date' donations.json)
+          gh issue create --title "Donasi PAID: $AMOUNT" --body "Donasi dengan reference $REFERENCE sudah dibayar pada $DATE."
 
       # (Opsional) Update README dengan QRIS
       # - name: Update README with QRIS
