@@ -81,6 +81,7 @@
 <!-- QRIS_END -->
 <!-- QRIS_END -->
 <!-- QRIS_END -->
+<!-- QRIS_END -->
 
 <h2 align="center">🎯 Skills</h2>
 
