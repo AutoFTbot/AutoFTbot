@@ -86,5 +86,15 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println("[SUCCESS] QRIS generated successfully!")
+	// Generate QR code PNG di root
+	qrCode, err := qr.GenerateQRCode(data)
+	if err != nil {
+		fmt.Println("[ERROR] Failed to generate QR code image:", err)
+		os.Exit(1)
+	}
+	if err := qrCode.WriteFile(256, "../qris.png"); err != nil {
+		fmt.Println("[ERROR] Failed to save QR code image:", err)
+		os.Exit(1)
+	}
+	fmt.Println("[SUCCESS] QR code image saved as qris.png in root directory!")
 }
