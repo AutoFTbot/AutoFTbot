@@ -40,18 +40,16 @@
 
 <!-- QRIS_START -->
 <!-- QRIS_START -->
-<div align="center">
+## QRIS Donasi Otomatis
 
-<h2>QRIS Donasi Otomatis</h2>
+![QRIS](qris.png)
 
-<img src="qris.png" alt="QRIS" width="300" />
+**Status:** PENDING
 
-<br><br>
-<strong>Status:</strong> PENDING  
-<strong>Nominal:</strong> Rp 5085  
-<strong>Reference:</strong> QRIS-1749192631
+**Nominal:** Rp 5085
 
-</div>
+**Reference:** QRIS-1749192631
+<!-- QRIS_END -->
 <!-- QRIS_END -->
 <!-- QRIS_END -->
 <!-- QRIS_END -->
