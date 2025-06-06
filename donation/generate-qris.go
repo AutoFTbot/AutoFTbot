@@ -1,49 +1,56 @@
-package main
+name: QRIS Donation
 
-import (
-	"encoding/json"
-	"math/rand"
-	"os"
-	"time"
+on:
+  schedule:
+    - cron: '*/5 * * * *' # setiap 5 menit
+  workflow_dispatch:
 
-	"github.com/AutoFTbot/OrderKuota-go/qris"
-)
+jobs:
+  qris-donation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout AutoFTbot
+        uses: actions/checkout@v2
 
-type DonationData struct {
-	Amount      int    `json:"amount"`
-	Reference   string `json:"reference"`
-	Status      string `json:"status"`
-	Date        string `json:"date"`
-	QRString    string `json:"qr_string"`
-}
+      - name: Checkout OrderKuota-go
+        uses: actions/checkout@v2
+        with:
+          repository: AutoFTbot/OrderKuota-go
+          path: OrderKuota-go
 
-func main() {
-	rand.Seed(time.Now().UnixNano())
-	amount := rand.Intn(99) + 1 // 1-99
-	reference := "QRIS-" + time.Now().Format("20060102150405")
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.19'
 
-	config := qris.QRISConfig{
-		MerchantID:   os.Getenv("MERCHANT_ID"),
-		APIKey:       os.Getenv("API_KEY"),
-		BaseQrString: os.Getenv("BASE_QR_STRING"),
-	}
-	qr, _ := qris.NewQRIS(config)
-	data := qris.QRISData{
-		Amount:      int64(amount),
-		TransactionID: reference,
-	}
-	qrString, _ := qr.GetQRISString(data)
+      - name: Generate new QRIS if needed
+        run: |
+          if [ ! -f donations.json ] || ! jq -e '.[0] | select(.status == "PENDING")' donations.json; then
+            go run generate-qris.go
+            git add donations.json
+            git commit -m "Generate new QRIS"
+            git push
+          fi
 
-	donation := DonationData{
-		Amount:    amount,
-		Reference: reference,
-		Status:    "PENDING",
-		Date:      time.Now().Format(time.RFC3339),
-		QRString:  qrString,
-	}
+      - name: Check payment status
+        env:
+          MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
+          API_KEY: ${{ secrets.API_KEY }}
+          BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
+        run: |
+          cd OrderKuota-go
+          AMOUNT=$(jq -r '.[0].amount' ../AutoFTbot/donations.json)
+          REFERENCE=$(jq -r '.[0].reference' ../AutoFTbot/donations.json)
+          PAID=$(go run ../AutoFTbot/donation/check-payment.go "$REFERENCE" "$AMOUNT")
+          if [ "$PAID" = "true" ]; then
+            go run ../AutoFTbot/donation/update-status.go "$REFERENCE" "PAID"
+            git add ../AutoFTbot/donations.json
+            git commit -m "Update donation $REFERENCE to PAID"
+            git push
+          fi
 
-	// Simpan ke donations.json (replace atau append, sesuai kebutuhan)
-	file, _ := os.Create("donations.json")
-	defer file.Close()
-	json.NewEncoder(file).Encode([]DonationData{donation})
-}
+      - name: Update README with QRIS
+        run: |
+          QR_STRING=$(jq -r '.[0].qr_string' donations.json)
+          # Generate QR code image (pakai Go atau tool lain)
+          # Update README.md dengan QR baru
