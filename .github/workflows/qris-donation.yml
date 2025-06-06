@@ -135,4 +135,4 @@ jobs:
           AMOUNT=$(jq -r '.[0].amount' donations.json)
           REFERENCE=$(jq -r '.[0].reference' donations.json)
           DATE=$(jq -r '.[0].date' donations.json)
-          gh issue create --title "Donasi PAID: $AMOUNT" --body "Qriss Donasi dengan reference $REFERENCE sudah keluar pada $DATE."
+          gh issue create --title "NOMINAL: $AMOUNT" --body "Qris Donasi dengan reference $REFERENCE sudah keluar pada $DATE."
