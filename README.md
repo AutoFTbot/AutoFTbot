@@ -38,8 +38,6 @@
   <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Readme Quotes" />
 </div>
 
-<h2 align="center">🎯 Skills</h2>
-
 <!-- QRIS_START -->
 <!-- QRIS_START -->
 <div align="center">
@@ -56,7 +54,8 @@
 </div>
 <!-- QRIS_END -->
 <!-- QRIS_END -->
-<!-- QRIS_END -->
+
+<h2 align="center">🎯 Skills</h2>
 
 <div align="center">
   <img src="https://skillicons.dev/icons?i=python,javascript,react,nodejs,html,css,git" />
