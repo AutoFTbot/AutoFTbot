@@ -76,6 +76,40 @@ jobs:
             git push
           fi
 
+      - name: Generate new QRIS after PAID
+        if: steps.check_payment.outputs.paid == 'true'
+        env:
+          MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
+          API_KEY: ${{ secrets.API_KEY }}
+          BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
+        run: |
+          cd OrderKuota-go
+          go run ../donation/generate-qris.go
+          cd ..
+          git add donations.json qris.png
+          git commit -m "Generate new QRIS after PAID" || true
+          git pull --rebase origin main
+          git push
+
+      - name: Update README with QRIS
+        run: |
+          AMOUNT=$(jq -r '.[0].amount' donations.json)
+          REFERENCE=$(jq -r '.[0].reference' donations.json)
+          STATUS=$(jq -r '.[0].status' donations.json)
+          echo "## QRIS Donasi Otomatis" > README.md
+          echo "" >> README.md
+          echo "![QRIS](qris.png)" >> README.md
+          echo "" >> README.md
+          echo "**Status:** $STATUS" >> README.md
+          echo "" >> README.md
+          echo "**Nominal:** Rp $AMOUNT" >> README.md
+          echo "" >> README.md
+          echo "**Reference:** $REFERENCE" >> README.md
+          git add README.md
+          git commit -m "Update README with latest QRIS" || true
+          git pull --rebase origin main
+          git push
+
       - name: Notify via GitHub Issue
         if: steps.check_payment.outputs.paid == 'true'
         run: |
