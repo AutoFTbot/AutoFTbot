@@ -52,24 +52,19 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
         run: |
-          # Get the test donation we just added
-          TEST_DONATION=$(jq -r '.[-1]' donations.json)
+          cd ../OrderKuota-go
+          TEST_DONATION=$(jq -r '.[-1]' ../AutoFTbot/donations.json)
           REFERENCE=$(echo $TEST_DONATION | jq -r '.reference')
           AMOUNT=$(echo $TEST_DONATION | jq -r '.amount')
           
-          # Check payment status
-          PAID=$(go run donation/check-payment.go "$REFERENCE" "$AMOUNT")
+          PAID=$(go run ../AutoFTbot/donation/check-payment.go "$REFERENCE" "$AMOUNT")
           
           if [ "$PAID" = "true" ]; then
-            # Update donation status
-            go run donation/update-status.go "$REFERENCE" "PAID"
-            
-            # Commit the update
-            git add donations.json
+            go run ../AutoFTbot/donation/update-status.go "$REFERENCE" "PAID"
+            git add ../AutoFTbot/donations.json
             git commit -m "test: Update test donation $REFERENCE to PAID"
             git push
             
-            # Create test issue
             gh issue create \
               --title "Test Payment Received: Rp $AMOUNT" \
               --body "This is a test donation.\n\nAmount: Rp $AMOUNT\nReference: $REFERENCE"
