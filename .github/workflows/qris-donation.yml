@@ -27,7 +27,7 @@ jobs:
       - name: Add replace directive to go.mod
         run: |
           if ! grep -q 'replace github.com/AutoFTbot/OrderKuota-go' OrderKuota-go/go.mod; then
-            echo 'replace github.com/AutoFTbot/OrderKuota-go => .' >> OrderKuota-go/go.mod
+            echo 'replace github.com/AutoFTbot/OrderKuota-go => ./' >> OrderKuota-go/go.mod
           fi
 
       - name: Generate new QRIS if needed
