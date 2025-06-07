@@ -6,6 +6,7 @@ on:
       - 'donations.json'
   schedule:
     - cron: '0 */6 * * *'  # Run every 6 hours
+  workflow_dispatch:
 
 jobs:
   update-badge:
@@ -64,6 +65,11 @@ jobs:
           echo "total=$TOTAL" >> $GITHUB_OUTPUT
           echo "count=$PAID_COUNT" >> $GITHUB_OUTPUT
 
+      - name: Debug Gist ID dan File
+        run: |
+          echo "[DEBUG] GIST_ID: 86a13cfb221fc094c35b4320e102d759"
+          echo "[DEBUG] File yang akan diupdate: total-donations.json"
+
       - name: Update README badge
         uses: schneegans/dynamic-badges-action@v1.5.0
         with:
@@ -73,6 +79,11 @@ jobs:
           label: 'Total Donasi'
           message: ${{ format('Rp {0} ({1} donasi)', steps.total.outputs.total, steps.total.outputs.count) }}
           color: green
+
+      - name: Debug hasil badge
+        run: |
+          echo "[DEBUG] Selesai update badge. Cek status file README.md dan badge."
+          cat README.md || echo "README.md tidak ditemukan."
 
       - name: Commit and push if changed
         run: |
@@ -84,4 +95,4 @@ jobs:
             git commit -m "Update donation badge: Rp ${{ steps.total.outputs.total }} (${{ steps.total.outputs.count }} donasi)"
             git pull --rebase origin main
             git push
-          fi
+          fi 
