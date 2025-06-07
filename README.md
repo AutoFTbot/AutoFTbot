@@ -1,42 +1,91 @@
-# AutoFTbot
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&amp;color=7A92B8&amp;height=200&amp;section=header&text=AutoFTbot&fontSize=90&animation=fadeIn&fontAlignY=35&desc=Malas%20Ngoding%20Adalah%20Jalan%20Ninjaku&descAlignY=55&descAlign=50&descSize=25&fontColor=ffffff&descColor=ffffff&customColorList=7A92B8" />
+---
+
+## 👋 About Me
+
+Hi, I'm **AutoFTbot** — a developer who values simplicity, automation, and clean code.
+
+- 🧠 _"Malas ngoding adalah jalan ninjaku."_  
+- 💡 I build tools and bots to automate workflows and eliminate repetitive tasks.  
+- 🎯 Passionate about open source, scripting, and developer efficiency.
+
+---
+
+## 🛠 Tech Stack
+
+**Languages & Frameworks**
+<p>
+  <img src="https://skillicons.dev/icons?i=python,javascript,nodejs,react,php,golang" />
 </p>
 
-<div align="center">
-  <img src="https://profile-counter.glitch.me/AutoFTbot/count.svg" alt="Profile Views" />
-</div>
-
-<p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=600&size=30&duration=3000&pause=1000&color=7A92B8&center=true&vCenter=true&width=435&lines=JUMLAH+ORANG+GABUT;MAU+NGAPAIN;SI+BANG" alt="Typing SVG" />
+**Tools & Platforms**
+<p>
+  <img src="https://skillicons.dev/icons?i=html,css,git,github,linux,vscode" />
 </p>
 
+---
+
+## 🚀 Featured Projects
+
+### 🔧 [Qris-OrderKuota](https://github.com/AutoFTbot/Qris-OrderKuota)  
+Library ringan untuk generate QRIS statis dan cek status pembayaran, dibuat khusus untuk kebutuhan integrasi sistem pemesanan produk digital.
+
+### 🔐 [Wildcard-ssl-bot](https://github.com/AutoFTbot/Wildcard-Bot)  
+Automation tool for issuing, renewing, and managing wildcard SSL certificates — designed to simplify HTTPS provisioning for multiple subdomains.
+
+---
+## 📊 GitHub Overview
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=AutoFTbot&show_icons=true&theme=radical&hide_border=true&include_all_commits=true&count_private=true" width="48%" />
+</p>
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=AutoFTbot&layout=compact&theme=radical&hide_border=true" width="48%" />
+</p>
+<p align="center">
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=AutoFTbot&theme=radical&hide_border=true" width="60%" />
+</p>
+
+---
+
+## 🧠 Contribution Graph
+
+<p align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=AutoFTbot&theme=radical&hide_border=true&area=true&color=7A92B8&line=ffffff&point=ffffff" />
+</p>
+
+---
+
+## 🏆 GitHub Trophies
+
+<p align="center">
+  <img src="https://github-profile-trophy.vercel.app/?username=AutoFTbot&theme=radical&row=1&column=7&no-frame=true" />
+</p>
+
+---
+
+## ⏱️ Wakatime Stats 
+
+<!-- Replace USER-ID with your Wakatime user ID -->
+<p align="center">
+  <img src="https://wakatime.com/badge/user/eebb3dd8-d9b2-40de-9b88-6fd6cac99dbc.svg?style=for-the-badge" alt="Wakatime Badge" />
+</p>
+
+---
+
+## Visitor Count
 <div align="center">
   <img src="https://komarev.com/ghpvc/?username=AutoFTbot&label=Visitor&color=7A92B8&style=for-the-badge" alt="Visitor Count" />
-  <img src="https://wakatime.com/badge/user/eebb3dd8-d9b2-40de-9b88-6fd6cac99dbc.svg?style=for-the-badge" alt="Wakatime Badge" />
 </div>
 
-<div align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=AutoFTbot&theme=radical&no-frame=true&row=1&column=7" alt="Trophy" />
-</div>
+## 🧠 Holopin Badges
 
-<div align="center">
-  <img src="https://github.com/AutoFTbot/AutoFTbot/blob/output/github-contribution-grid-snake-dark.svg" alt="Snake animation" />
-</div>
+[![Holopin profile](https://holopin.me/autoftbot)](https://holopin.io/@autoftbot)
 
-<h2 align="center">👋 About Me</h2>
+---
 
-<div align="center">
-  <img src="https://media.giphy.com/media/L1R1tvI9svkIWwpVYr/giphy.gif" width="200" />
-  <br>
-  <strong>AutoFTbot</strong> - Developer yang malas tapi tetap produktif
-  <br>
-  <i>Karena malas ngoding adalah jalan ninjaku, tapi tetap produktif ya! 😉</i>
-</div>
+## ☕ Support Me
 
-<div align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Readme Quotes" />
-</div>
+If my tools help you, consider buying me a virtual coffee.
 
 <!-- QRIS_START -->
 <div align="center">
@@ -55,50 +104,17 @@
   </a>
 </p>
 
+---
 
-<h2 align="center">🎯 Skills</h2>
+## 📫 Contact
 
-<div align="center">
-  <img src="https://skillicons.dev/icons?i=python,javascript,react,nodejs,html,css,git" />
-</div>
-
-<h2 align="center">📊 Stats</h2>
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=AutoFTbot&show_icons=true&theme=radical&hide_border=true&bg_color=20232a&icon_color=ff0000&title_color=7A92B8&text_color=ffffff&ring_color=ff0000" alt="AutoFTbot's GitHub Stats" />
-</div>
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=AutoFTbot&layout=donut&theme=radical&hide_border=true&bg_color=20232a&title_color=7A92B8&text_color=ffffff" alt="Top Languages" />
-</div>
-
-<div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=AutoFTbot&theme=redical&hide_border=true&bg_color=20232a&color=ff0000&line=ff0000&point=ff0000&area=true&hide_title=true&area_color=ff000033" alt="Activity Graph" />
-</div>
-
-[![An image of @autoftbot's Holopin badges, which is a link to view their full Holopin profile](https://holopin.me/autoftbot)](https://holopin.io/@autoftbot)
-
-<h2 align="center">🤝 Connect With Me</h2>
-
-<div align="center">
+<p align="center">
   <a href="mailto:autoftbot.dev@gmail.com">
-    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail" />
+    <img src="https://img.shields.io/badge/Email-autoftbot.dev@gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
   </a>
   <a href="https://github.com/AutoFTbot/AutoFTbot/issues">
-    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+    <img src="https://img.shields.io/badge/GitHub_Issues-Report%20a%20Bug-181717?style=for-the-badge&logo=github&logoColor=white" />
   </a>
-</div>
+</p>
 
-<br>
-
-<div align="center">
-  <img src="https://media.giphy.com/media/M9gbBd9nbDrOTu1Mqx/giphy.gif" width="100">
-</div>
-
-<div align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=500&size=25&pause=1000&color=7A92B8&center=true&vCenter=true&width=435&lines=KEEP+CALM+AND+BE+LAZY;TAPI+TETAP+PRODUKTIF" alt="Typing SVG" />
-</div>
-
-<div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=7A92B8&height=120&section=footer&text=Made%20with%20❤️%20by%20AutoFTbot&fontSize=20&fontColor=ffffff&animation=twinkling&descSize=25&fontAlignY=80" />
-</div>
+---
