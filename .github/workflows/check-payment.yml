@@ -99,4 +99,4 @@ jobs:
 
           gh issue create \
             --title "✅ Payment Received: Rp $AMOUNT" \
-            --body "🎉 Thank you for your donation!\n\n**Amount:** Rp $AMOUNT\n**Reference:** $REFERENCE\n**Date:** $DATE\n\nQRIS baru telah digenerate untuk donasi berikutnya."
+            --body $'🎉 **Terima kasih atas donasinya!**\n\n---\n- **Jumlah:** Rp '"$AMOUNT"$'\n- **Referensi:** '"$REFERENCE"$'\n- **Tanggal:** '"$DATE"$'\n\n🧾 QRIS baru telah berhasil digenerate untuk donasi berikutnya. Silakan cek kembali untuk informasi terbaru.'
