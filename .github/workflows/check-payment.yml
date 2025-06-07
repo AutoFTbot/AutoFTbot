@@ -3,11 +3,12 @@ name: Check Payment Status
 on:
   schedule:
     - cron: '*/5 * * * *'  # Run every 5 minutes
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:        # Allow manual trigger
 
 jobs:
   check-payment:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout AutoFTbot
         uses: actions/checkout@v2
@@ -24,12 +25,6 @@ jobs:
         with:
           go-version: '1.21'
 
-      - name: Add replace directive to go.mod
-        run: |
-          if ! grep -q 'replace github.com/AutoFTbot/OrderKuota-go' OrderKuota-go/go.mod; then
-            echo 'replace github.com/AutoFTbot/OrderKuota-go => ./' >> OrderKuota-go/go.mod
-          fi
-
       - name: Configure Git
         run: |
           git config --global user.name "GitHub Actions"
@@ -43,48 +38,44 @@ jobs:
           BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
         run: |
           cd OrderKuota-go
+
           if [ ! -f ../donations.json ]; then
             echo "[ERROR] donations.json tidak ditemukan"
+            echo "paid=false" >> "$GITHUB_OUTPUT"
             exit 1
           fi
-          
-          # Cek apakah ada donasi yang pending
+
           PENDING_COUNT=$(jq '[.[] | select(.status == "PENDING")] | length' ../donations.json)
           if [ "$PENDING_COUNT" = "0" ]; then
             echo "[INFO] Tidak ada donasi yang pending"
-            echo "paid=false" >> $GITHUB_OUTPUT
+            echo "paid=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          
-          # Ambil donasi pending pertama
-          AMOUNT=$(jq -r '.[0].amount' ../donations.json)
-          REFERENCE=$(jq -r '.[0].reference' ../donations.json)
-          STATUS=$(jq -r '.[0].status' ../donations.json)
-          
-          if [ "$STATUS" != "PENDING" ]; then
-            echo "[INFO] Status donasi bukan PENDING: $STATUS"
-            echo "paid=false" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-          
+
+          AMOUNT=$(jq -r '[.[] | select(.status == "PENDING")][0].amount' ../donations.json)
+          REFERENCE=$(jq -r '[.[] | select(.status == "PENDING")][0].reference' ../donations.json)
+
           echo "[INFO] Mengecek pembayaran untuk reference: $REFERENCE, amount: $AMOUNT"
           PAID=$(go run ../donation/check-payment.go "$REFERENCE" "$AMOUNT")
-          echo "paid=$PAID" >> $GITHUB_OUTPUT
-          
+
+          if [ "$PAID" != "true" ] && [ "$PAID" != "false" ]; then
+            echo "[ERROR] Nilai PAID tidak valid: $PAID"
+            echo "paid=false" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+
+          echo "paid=$PAID" >> "$GITHUB_OUTPUT"
+
           if [ "$PAID" = "true" ]; then
             echo "[INFO] Pembayaran berhasil!"
-            # Update status pembayaran
             go run ../donation/update-status.go "$REFERENCE" "PAID"
-            
-            # Generate QRIS baru segera
             echo "[INFO] Generate QRIS baru..."
             go run ../donation/generate-qris.go
-            
-            # Commit perubahan
+
             cd ..
+            git pull --rebase origin main
             git add donations.json qris.png
             git commit -m "Update payment status and generate new QRIS" || true
-            git pull --rebase origin main
             git push
           else
             echo "[INFO] Pembayaran belum diterima"
@@ -95,9 +86,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          AMOUNT=$(jq -r '.[0].amount' donations.json)
-          REFERENCE=$(jq -r '.[0].reference' donations.json)
-          DATE=$(jq -r '.[0].date' donations.json)
+          AMOUNT=$(jq -r '[.[] | select(.status == "PENDING")][0].amount' donations.json)
+          REFERENCE=$(jq -r '[.[] | select(.status == "PENDING")][0].reference' donations.json)
+          DATE=$(jq -r '[.[] | select(.status == "PENDING")][0].date' donations.json)
+
           gh issue create \
-            --title "Payment Received: Rp $AMOUNT" \
-            --body "Thank you for your donation! ��\n\nAmount: Rp $AMOUNT\nReference: $REFERENCE\nDate: $DATE\n\nQRIS baru telah digenerate untuk donasi berikutnya."
+            --title "✅ Payment Received: Rp $AMOUNT" \
+            --body "🎉 **Terima kasih atas donasinya!**\n\n**💰 Jumlah:** Rp $AMOUNT\n**📄 Referensi:** \`$REFERENCE\`\n**📅 Tanggal:** $DATE\n\nQRIS baru telah berhasil digenerate untuk donasi selanjutnya. 🙏"
