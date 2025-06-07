@@ -5,7 +5,7 @@ on:
     paths:
       - 'donations.json'
   schedule:
-    - cron: '0 */6 * * *'  # Run every 6 hours
+    - cron: '*/1 * * * *' # setiap 5 menit
 
 jobs:
   update-badge:
