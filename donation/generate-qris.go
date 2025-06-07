@@ -79,6 +79,15 @@ func main() {
 	donationsPath := filepath.Join(rootDir, "donations.json")
 	qrisPngPath := filepath.Join(rootDir, "qris.png")
 
+	// Baca donations.json jika sudah ada
+	var donations []DonationData
+	if data, err := os.ReadFile(donationsPath); err == nil {
+		_ = json.Unmarshal(data, &donations)
+	}
+
+	// Tambahkan donasi baru ke array
+	donations = append(donations, donation)
+
 	file, err := os.Create(donationsPath)
 	if err != nil {
 		fmt.Println("[ERROR] Failed to create donations.json:", err)
@@ -88,7 +97,7 @@ func main() {
 
 	encoder := json.NewEncoder(file)
 	encoder.SetIndent("", "  ")
-	if err := encoder.Encode([]DonationData{donation}); err != nil {
+	if err := encoder.Encode(donations); err != nil {
 		fmt.Println("[ERROR] Failed to write donations.json:", err)
 		os.Exit(1)
 	}
