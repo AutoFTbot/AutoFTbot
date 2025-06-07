@@ -86,9 +86,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          AMOUNT=$(jq -r '[.[] | select(.status == "PENDING")][0].amount' donations.json)
-          REFERENCE=$(jq -r '[.[] | select(.status == "PENDING")][0].reference' donations.json)
-          DATE=$(jq -r '[.[] | select(.status == "PENDING")][0].date' donations.json)
+          AMOUNT=$(jq -r '[.[] | select(.status == "PAID")] | sort_by(.date) | last.amount' donations.json)
+          REFERENCE=$(jq -r '[.[] | select(.status == "PAID")] | sort_by(.date) | last.reference' donations.json)
+          DATE=$(jq -r '[.[] | select(.status == "PAID")] | sort_by(.date) | last.date' donations.json)
 
           gh issue create \
             --title "✅ Payment Received: Rp $AMOUNT" \
