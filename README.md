@@ -39,7 +39,6 @@
 </div>
 
 <!-- QRIS_START -->
-<!-- QRIS_START -->
 <div align="center">
 
 <h2>QRIS Donasi Otomatis</h2>
@@ -50,8 +49,12 @@
 
 </div>
 <!-- QRIS_END -->
+<p align="center">
+  <a href="https://github.com/AutoFTbot/AutoFTbot">
+    <img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AutoFTbot/86a13cfb221fc094c35b4320e102d759/raw/total-donations.json" alt="Total Donasi"/>
+  </a>
+</p>
 
-[![Total Donasi](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AutoFTbot/86a13cfb221fc094c35b4320e102d759/raw/total-donations.json)](https://github.com/AutoFTbot/AutoFTbot)
 
 <h2 align="center">🎯 Skills</h2>
 
