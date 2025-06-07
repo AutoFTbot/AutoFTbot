@@ -9,42 +9,61 @@ jobs:
   check-payment:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      
+      - name: Checkout AutoFTbot
+        uses: actions/checkout@v2
+
+      - name: Checkout OrderKuota-go
+        uses: actions/checkout@v2
+        with:
+          repository: AutoFTbot/OrderKuota-go
+          path: OrderKuota-go
+          ref: v1.0.1
+
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.19'
-          
+          go-version: '1.21'
+
+      - name: Add replace directive to go.mod
+        run: |
+          if ! grep -q 'replace github.com/AutoFTbot/OrderKuota-go' OrderKuota-go/go.mod; then
+            echo 'replace github.com/AutoFTbot/OrderKuota-go => ./' >> OrderKuota-go/go.mod
+          fi
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
       - name: Check payment status
+        id: check_payment
         env:
           MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
           API_KEY: ${{ secrets.API_KEY }}
           BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
         run: |
-          # Read pending donations
-          if [ -f donations.json ]; then
-            # Get pending donations
-            PENDING_DONATIONS=$(go run donation/check-pending.go)
-            
-            if [ ! -z "$PENDING_DONATIONS" ]; then
-              # Check each pending donation
-              echo "$PENDING_DONATIONS" | while read -r line; do
-                REFERENCE=$(echo $line | jq -r '.reference')
-                AMOUNT=$(echo $line | jq -r '.amount')
-                
-                # Check payment status
-                PAID=$(go run donation/check-payment.go "$REFERENCE" "$AMOUNT")
-                
-                if [ "$PAID" = "true" ]; then
-                  # Update donation status
-                  go run donation/update-status.go "$REFERENCE" "PAID"
-                  
-                  # Create issue for successful payment
-                  gh issue create \
-                    --title "Payment Received: Rp $AMOUNT" \
-                    --body "Thank you for your donation! 🎉\n\nAmount: Rp $AMOUNT\nReference: $REFERENCE"
-                fi
-              done
+          cd OrderKuota-go
+          if [ -f ../donations.json ]; then
+            AMOUNT=$(jq -r '.[0].amount' ../donations.json)
+            REFERENCE=$(jq -r '.[0].reference' ../donations.json)
+            PAID=$(go run ../donation/check-payment.go "$REFERENCE" "$AMOUNT")
+            echo "paid=$PAID" >> $GITHUB_OUTPUT
+            if [ "$PAID" = "true" ]; then
+              go run ../donation/update-status.go "$REFERENCE" "PAID"
+              cd ..
+              git add donations.json
+              git commit -m "Update donation $REFERENCE to PAID" || true
+              git pull --rebase origin main
+              git push
             fi
-          fi 
+          fi
+
+      - name: Notify via GitHub Issue
+        if: steps.check_payment.outputs.paid == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          AMOUNT=$(jq -r '.[0].amount' donations.json)
+          REFERENCE=$(jq -r '.[0].reference' donations.json)
+          DATE=$(jq -r '.[0].date' donations.json)
+          gh issue create --title "Payment Received: Rp $AMOUNT" --body "Thank you for your donation! 🎉\n\nAmount: Rp $AMOUNT\nReference: $REFERENCE\nDate: $DATE" 
