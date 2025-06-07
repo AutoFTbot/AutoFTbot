@@ -5,14 +5,15 @@ on:
     paths:
       - 'donations.json'
   schedule:
-    - cron: '0 */6 * * *'  # Run every 6 hours
+    - cron: '0 */6 * * *'  # Setiap 6 jam
   workflow_dispatch:
 
 jobs:
   update-badge:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout AutoFTbot
+      - name: Checkout AutoFTbot (Repo ini)
         uses: actions/checkout@v2
 
       - name: Checkout OrderKuota-go
@@ -22,77 +23,78 @@ jobs:
           path: OrderKuota-go
           ref: v1.0.1
 
-      - name: Set up Go
+      - name: Setup Go
         uses: actions/setup-go@v2
         with:
           go-version: '1.21'
 
-      - name: Add replace directive to go.mod
+      - name: Tambahkan replace directive ke go.mod
         run: |
           if ! grep -q 'replace github.com/AutoFTbot/OrderKuota-go' OrderKuota-go/go.mod; then
-            echo 'replace github.com/AutoFTbot/OrderKuota-go => ./' >> OrderKuota-go/go.mod
+            echo 'replace github.com/AutoFTbot/OrderKuota-go => ./OrderKuota-go' >> go.mod
           fi
 
-      - name: Configure Git
+      - name: Konfigurasi Git
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-      - name: Calculate total donations
+      - name: Hitung Total Donasi
         id: total
         run: |
-          echo "[INFO] Cek keberadaan donations.json di $(pwd)"
+          echo "[INFO] Cek keberadaan donations.json"
           if [ ! -f donations.json ]; then
             echo "[ERROR] donations.json tidak ditemukan"
             echo "total=0" >> $GITHUB_OUTPUT
+            echo "count=0" >> $GITHUB_OUTPUT
             exit 0
           fi
-          
-          # Hitung total donasi yang sudah PAID
+
           cd OrderKuota-go
           TOTAL=$(go run ../donation/calculate-total.go)
           cd ..
-          
+
           if [ -z "$TOTAL" ]; then
-            echo "[WARN] Total donasi kosong, set ke 0"
+            echo "[WARN] Total kosong, set ke 0"
             TOTAL=0
           fi
-          
-          # Hitung jumlah donasi yang sudah PAID
+
           PAID_COUNT=$(jq '[.[] | select(.status == "PAID")] | length' donations.json)
-          
-          echo "[INFO] Total donasi: Rp $TOTAL (dari $PAID_COUNT donasi)"
+
+          echo "[INFO] Total: Rp $TOTAL ($PAID_COUNT donasi)"
           echo "total=$TOTAL" >> $GITHUB_OUTPUT
           echo "count=$PAID_COUNT" >> $GITHUB_OUTPUT
 
-      - name: Debug Gist ID dan File
+      - name: Debug ID Gist & File
         run: |
-          echo "[DEBUG] GIST_ID: 86a13cfb221fc094c35b4320e102d759"
-          echo "[DEBUG] File yang akan diupdate: total-donations.json"
+          echo "[DEBUG] Gist ID: 86a13cfb221fc094c35b4320e102d759"
+          echo "[DEBUG] File: total-donations.json"
+          echo "[DEBUG] Token terpotong: ${GIST_SECRET:0:4}**** (jika di-set)"
 
-      - name: Update README badge
+      - name: Update Badge di README
         uses: schneegans/dynamic-badges-action@v1.5.0
         with:
           auth: ${{ secrets.GIST_SECRET }}
           gistID: 86a13cfb221fc094c35b4320e102d759
           filename: total-donations.json
-          label: 'Total Donasi'
+          label: "Total Donasi"
           message: ${{ format('Rp {0} ({1} donasi)', steps.total.outputs.total, steps.total.outputs.count) }}
           color: green
+          forceUpdate: true
+          debug: true
 
-      - name: Debug hasil badge
+      - name: Cek README
         run: |
-          echo "[DEBUG] Selesai update badge. Cek status file README.md dan badge."
+          echo "[INFO] Cek apakah README.md ada"
           cat README.md || echo "README.md tidak ditemukan."
 
-      - name: Commit and push if changed
+      - name: Commit dan Push jika README berubah
         run: |
           git add README.md || true
           if git diff --quiet && git diff --staged --quiet; then
             echo "[INFO] Tidak ada perubahan pada README.md"
           else
-            echo "[INFO] Ada perubahan pada README.md, melakukan commit dan push"
-            git commit -m "Update donation badge: Rp ${{ steps.total.outputs.total }} (${{ steps.total.outputs.count }} donasi)"
+            echo "[INFO] Ada perubahan, melakukan commit dan push"
+            git commit -m "Update badge donasi: Rp ${{ steps.total.outputs.total }} (${{ steps.total.outputs.count }} donasi)"
             git pull --rebase origin main
             git push
-          fi 
