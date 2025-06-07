@@ -53,54 +53,8 @@
 
 </div>
 <!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
-<!-- QRIS_END -->
+
+[![Total Donasi](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AutoFTbot/86a13cfb221fc094c35b4320e102d759/raw/total-donations.json)](https://github.com/AutoFTbot/AutoFTbot)
 
 <h2 align="center">🎯 Skills</h2>
 
