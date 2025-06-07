@@ -47,9 +47,6 @@
 <img src="qris.png" alt="QRIS" width="300" />
 
 <br><br>
-<strong>Status:</strong> PENDING  
-<strong>Nominal:</strong> Rp 5085  
-<strong>Reference:</strong> QRIS-1749192631
 
 </div>
 <!-- QRIS_END -->
