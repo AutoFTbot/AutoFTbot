@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 type DonationData struct {
@@ -12,15 +13,20 @@ type DonationData struct {
 }
 
 func main() {
-	data, err := os.ReadFile("donations.json")
+	// Pastikan path ke donations.json benar (di root repo)
+	scriptDir, _ := os.Getwd()
+	rootDir := filepath.Dir(scriptDir)
+	donationsPath := filepath.Join(rootDir, "donations.json")
+
+	data, err := os.ReadFile(donationsPath)
 	if err != nil {
-		fmt.Println("0")
+		fmt.Print("0")
 		return
 	}
 
 	var donations []DonationData
 	if err := json.Unmarshal(data, &donations); err != nil {
-		fmt.Println("0")
+		fmt.Print("0")
 		return
 	}
 
@@ -31,5 +37,5 @@ func main() {
 		}
 	}
 
-	fmt.Println(total)
+	fmt.Print(total)
 } 
