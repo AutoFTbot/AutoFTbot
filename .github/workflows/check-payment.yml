@@ -80,7 +80,7 @@ jobs:
             go run ../donation/generate-qris.go
 
             cd ..
-            git pull --rebase origin main
+            git pull --rebase origin main || true
             git add donations.json qris.png
             git commit -m "Update payment status and generate new QRIS" || true
             git push
