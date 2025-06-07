@@ -35,63 +35,43 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-      - name: Generate new QRIS if needed
-        env:
-          MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
-          API_KEY: ${{ secrets.API_KEY }}
-          BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
+      - name: Check if QRIS needed
+        id: check_qris
         run: |
-          if [ ! -s donations.json ] || ! jq -e '.[0] | select(.status == "PENDING" or .status == "PAID")' donations.json; then
-            echo "[INFO] Generating new QRIS..."
-            cd OrderKuota-go
-            go run ../donation/generate-qris.go
-            cd ..
-            git add donations.json qris.png
-            git commit -m "Generate new QRIS" || true
-            git pull --rebase origin main
-            git push
+          if [ ! -f donations.json ]; then
+            echo "[INFO] donations.json tidak ditemukan, perlu generate QRIS baru"
+            echo "need_qris=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Cek apakah ada donasi yang pending
+          PENDING_COUNT=$(jq '[.[] | select(.status == "PENDING")] | length' donations.json)
+          if [ "$PENDING_COUNT" = "0" ]; then
+            echo "[INFO] Tidak ada donasi yang pending, perlu generate QRIS baru"
+            echo "need_qris=true" >> $GITHUB_OUTPUT
           else
-            echo "[INFO] donations.json sudah terisi dan status PENDING/PAID, tidak generate baru."
+            echo "[INFO] Masih ada donasi yang pending, tidak perlu generate QRIS baru"
+            echo "need_qris=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Check payment status
-        id: check_payment
+      - name: Generate new QRIS if needed
+        if: steps.check_qris.outputs.need_qris == 'true'
         env:
           MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
           API_KEY: ${{ secrets.API_KEY }}
           BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
         run: |
-          cd OrderKuota-go
-          AMOUNT=$(jq -r '.[0].amount' ../donations.json)
-          REFERENCE=$(jq -r '.[0].reference' ../donations.json)
-          PAID=$(go run ../donation/check-payment.go "$REFERENCE" "$AMOUNT")
-          echo "paid=$PAID" >> $GITHUB_OUTPUT
-          if [ "$PAID" = "true" ]; then
-            go run ../donation/update-status.go "$REFERENCE" "PAID"
-            cd ..
-            cat donations.json
-            git add donations.json
-            git commit -m "Update donation $REFERENCE to PAID" || true
-            git pull --rebase origin main
-            git push
-          fi
-
-      - name: Generate new QRIS after PAID
-        if: steps.check_payment.outputs.paid == 'true'
-        env:
-          MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
-          API_KEY: ${{ secrets.API_KEY }}
-          BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
-        run: |
+          echo "[INFO] Generating new QRIS..."
           cd OrderKuota-go
           go run ../donation/generate-qris.go
           cd ..
           git add donations.json qris.png
-          git commit -m "Generate new QRIS after PAID" || true
+          git commit -m "Generate new QRIS" || true
           git pull --rebase origin main
           git push
 
       - name: Update README with QRIS using marker
+        if: steps.check_qris.outputs.need_qris == 'true'
         run: |
           AMOUNT=$(jq -r '.[0].amount' donations.json)
           REFERENCE=$(jq -r '.[0].reference' donations.json)
@@ -123,16 +103,6 @@ jobs:
           rm qris_section.md
 
           git add README.md
-          git commit -m "Update README with centered QRIS via marker" || true
+          git commit -m "Update README with QRIS" || true
           git pull --rebase origin main
           git push
-
-      - name: Notify via GitHub Issue
-        if: steps.check_payment.outputs.paid == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          AMOUNT=$(jq -r '.[0].amount' donations.json)
-          REFERENCE=$(jq -r '.[0].reference' donations.json)
-          DATE=$(jq -r '.[0].date' donations.json)
-          gh issue create --title "NOMINAL: $AMOUNT" --body "Qris Donasi dengan reference $REFERENCE sudah keluar pada $DATE."
