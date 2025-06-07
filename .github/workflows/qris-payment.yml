@@ -1,0 +1,48 @@
+name: Install and Remove qris-payment Package
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  install-qris-payment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Inisialisasi Project (Kalau belum ada package.json)
+        run: |
+          if [ ! -f package.json ]; then
+            echo "[INFO] Membuat package.json kosong"
+            npm init -y
+          fi
+
+      - name: Install qris-payment dari NPM
+        run: |
+          echo "[INFO] Menginstal qris-payment..."
+          npm install qris-payment
+
+      - name: Cek apakah qris-payment terinstal
+        run: |
+          echo "[INFO] Verifikasi qris-payment..."
+          ls -l node_modules/qris-payment || echo "qris-payment tidak ditemukan"
+
+      - name: Uninstall qris-payment
+        run: |
+          echo "[INFO] Menghapus package qris-payment..."
+          npm uninstall qris-payment
+
+      - name: Hapus node_modules dan lock file (bersih total)
+        run: |
+          echo "[INFO] Menghapus node_modules dan package-lock.json..."
+          rm -rf node_modules
+          rm -f package-lock.json
