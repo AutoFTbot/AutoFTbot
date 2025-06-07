@@ -80,7 +80,6 @@ jobs:
           message: ${{ format('Rp {0} ({1} donasi)', steps.total.outputs.total, steps.total.outputs.count) }}
           color: green
           forceUpdate: true
-          debug: true
 
       - name: Cek README
         run: |
