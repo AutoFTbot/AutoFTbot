@@ -5,19 +5,38 @@ on:
     paths:
       - 'donations.json'
   schedule:
-    - cron: '*/1 * * * *' # setiap 5 menit
+    - cron: '0 */6 * * *'  # Run every 6 hours
 
 jobs:
   update-badge:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      
+      - name: Checkout AutoFTbot
+        uses: actions/checkout@v2
+
+      - name: Checkout OrderKuota-go
+        uses: actions/checkout@v2
+        with:
+          repository: AutoFTbot/OrderKuota-go
+          path: OrderKuota-go
+          ref: v1.0.1
+
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.19'
-          
+          go-version: '1.21'
+
+      - name: Add replace directive to go.mod
+        run: |
+          if ! grep -q 'replace github.com/AutoFTbot/OrderKuota-go' OrderKuota-go/go.mod; then
+            echo 'replace github.com/AutoFTbot/OrderKuota-go => ./' >> OrderKuota-go/go.mod
+          fi
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
       - name: Calculate total donations
         id: total
         run: |
@@ -25,7 +44,9 @@ jobs:
           ls -lah || true
           if [ -f donations.json ]; then
             echo "[DEBUG] donations.json ditemukan."
-            TOTAL=$(go run donation/calculate-total.go)
+            cd OrderKuota-go
+            TOTAL=$(go run ../donation/calculate-total.go)
+            cd ..
             echo "[DEBUG] Total donasi: $TOTAL"
             echo "total=$TOTAL" >> $GITHUB_OUTPUT
           else
@@ -55,9 +76,6 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git status
           git add README.md || true
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update donation badge" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update donation badge" && git pull --rebase origin main && git push)
           echo "[DEBUG] Push selesai." 
