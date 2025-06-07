@@ -35,7 +35,7 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-      - name: Check payment status
+      - name: Check payment status and update
         id: check_payment
         env:
           MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
@@ -43,19 +43,51 @@ jobs:
           BASE_QR_STRING: ${{ secrets.BASE_QR_STRING }}
         run: |
           cd OrderKuota-go
-          if [ -f ../donations.json ]; then
-            AMOUNT=$(jq -r '.[0].amount' ../donations.json)
-            REFERENCE=$(jq -r '.[0].reference' ../donations.json)
-            PAID=$(go run ../donation/check-payment.go "$REFERENCE" "$AMOUNT")
-            echo "paid=$PAID" >> $GITHUB_OUTPUT
-            if [ "$PAID" = "true" ]; then
-              go run ../donation/update-status.go "$REFERENCE" "PAID"
-              cd ..
-              git add donations.json
-              git commit -m "Update donation $REFERENCE to PAID" || true
-              git pull --rebase origin main
-              git push
-            fi
+          if [ ! -f ../donations.json ]; then
+            echo "[ERROR] donations.json tidak ditemukan"
+            exit 1
+          fi
+          
+          # Cek apakah ada donasi yang pending
+          PENDING_COUNT=$(jq '[.[] | select(.status == "PENDING")] | length' ../donations.json)
+          if [ "$PENDING_COUNT" = "0" ]; then
+            echo "[INFO] Tidak ada donasi yang pending"
+            echo "paid=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Ambil donasi pending pertama
+          AMOUNT=$(jq -r '.[0].amount' ../donations.json)
+          REFERENCE=$(jq -r '.[0].reference' ../donations.json)
+          STATUS=$(jq -r '.[0].status' ../donations.json)
+          
+          if [ "$STATUS" != "PENDING" ]; then
+            echo "[INFO] Status donasi bukan PENDING: $STATUS"
+            echo "paid=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          echo "[INFO] Mengecek pembayaran untuk reference: $REFERENCE, amount: $AMOUNT"
+          PAID=$(go run ../donation/check-payment.go "$REFERENCE" "$AMOUNT")
+          echo "paid=$PAID" >> $GITHUB_OUTPUT
+          
+          if [ "$PAID" = "true" ]; then
+            echo "[INFO] Pembayaran berhasil!"
+            # Update status pembayaran
+            go run ../donation/update-status.go "$REFERENCE" "PAID"
+            
+            # Generate QRIS baru segera
+            echo "[INFO] Generate QRIS baru..."
+            go run ../donation/generate-qris.go
+            
+            # Commit perubahan
+            cd ..
+            git add donations.json qris.png
+            git commit -m "Update payment status and generate new QRIS" || true
+            git pull --rebase origin main
+            git push
+          else
+            echo "[INFO] Pembayaran belum diterima"
           fi
 
       - name: Notify via GitHub Issue
@@ -66,4 +98,6 @@ jobs:
           AMOUNT=$(jq -r '.[0].amount' donations.json)
           REFERENCE=$(jq -r '.[0].reference' donations.json)
           DATE=$(jq -r '.[0].date' donations.json)
-          gh issue create --title "Payment Received: Rp $AMOUNT" --body "Thank you for your donation! 🎉\n\nAmount: Rp $AMOUNT\nReference: $REFERENCE\nDate: $DATE" 
+          gh issue create \
+            --title "Payment Received: Rp $AMOUNT" \
+            --body "Thank you for your donation! ��\n\nAmount: Rp $AMOUNT\nReference: $REFERENCE\nDate: $DATE\n\nQRIS baru telah digenerate untuk donasi berikutnya."
