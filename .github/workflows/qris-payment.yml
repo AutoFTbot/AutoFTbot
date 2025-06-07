@@ -1,17 +1,16 @@
-name: Install and Remove qris-payment Package
+name: Install & Remove qris-payment
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'  # Jalan setiap hari jam 02:00 UTC
+  workflow_dispatch:      # Bisa dijalankan manual juga
 
 jobs:
-  install-qris-payment:
+  install-and-clean:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -19,30 +18,34 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Inisialisasi Project (Kalau belum ada package.json)
+      - name: Init package.json (jika belum ada)
         run: |
           if [ ! -f package.json ]; then
-            echo "[INFO] Membuat package.json kosong"
+            echo "[INFO] Membuat package.json..."
             npm init -y
           fi
 
-      - name: Install qris-payment dari NPM
+      - name: Install qris-payment
         run: |
-          echo "[INFO] Menginstal qris-payment..."
+          echo "[INFO] Menginstal qris-payment dari NPM..."
           npm install qris-payment
 
-      - name: Cek apakah qris-payment terinstal
+      - name: Verifikasi bahwa qris-payment sudah terinstal
         run: |
-          echo "[INFO] Verifikasi qris-payment..."
-          ls -l node_modules/qris-payment || echo "qris-payment tidak ditemukan"
+          if [ -d "node_modules/qris-payment" ]; then
+            echo "[INFO] qris-payment berhasil diinstal."
+          else
+            echo "[ERROR] qris-payment tidak ditemukan setelah install."
+            exit 1
+          fi
 
       - name: Uninstall qris-payment
         run: |
-          echo "[INFO] Menghapus package qris-payment..."
+          echo "[INFO] Menghapus qris-payment..."
           npm uninstall qris-payment
 
-      - name: Hapus node_modules dan lock file (bersih total)
+      - name: Hapus semua dependensi dan lock file
         run: |
-          echo "[INFO] Menghapus node_modules dan package-lock.json..."
+          echo "[INFO] Membersihkan node_modules dan package-lock.json..."
           rm -rf node_modules
           rm -f package-lock.json
