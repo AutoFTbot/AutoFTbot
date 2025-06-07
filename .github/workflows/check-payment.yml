@@ -3,17 +3,17 @@ name: Check Payment Status
 on:
   schedule:
     - cron: '*/5 * * * *'  # Tiap 5 menit
-  workflow_dispatch:        # Bisa jalanin manual juga
+  workflow_dispatch:        # Bisa manual
 
 jobs:
   check-payment:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout AutoFTbot (repo utama)
+      - name: Checkout repo utama
         uses: actions/checkout@v2
 
-      - name: Checkout OrderKuota-go (submodule lokal)
+      - name: Checkout OrderKuota-go (library lokal)
         uses: actions/checkout@v2
         with:
           repository: AutoFTbot/OrderKuota-go
@@ -25,12 +25,13 @@ jobs:
         with:
           go-version: '1.21.13'
 
-      - name: Paksa pake source lokal OrderKuota-go
+      - name: Init dan replace module lokal
         run: |
+          go mod init github.com/AutoFTbot/AutoFTbot || true
           echo 'replace github.com/AutoFTbot/OrderKuota-go => ./OrderKuota-go' >> go.mod
           go mod tidy
 
-      - name: Configure Git
+      - name: Setup Git user
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
@@ -86,7 +87,7 @@ jobs:
             echo "[INFO] Pembayaran belum diterima"
           fi
 
-      - name: Buat GitHub Issue kalau bayar sukses
+      - name: Bikin GitHub Issue kalau berhasil
         if: steps.check_payment.outputs.paid == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
