@@ -69,7 +69,6 @@ jobs:
         run: |
           echo "[DEBUG] Gist ID: 86a13cfb221fc094c35b4320e102d759"
           echo "[DEBUG] File: total-donations.json"
-          echo "[DEBUG] Token terpotong: ${GIST_SECRET:0:4}**** (jika di-set)"
 
       - name: Update Badge di README
         uses: schneegans/dynamic-badges-action@v1.5.0
@@ -98,3 +97,4 @@ jobs:
             git commit -m "Update badge donasi: Rp ${{ steps.total.outputs.total }} (${{ steps.total.outputs.count }} donasi)"
             git pull --rebase origin main
             git push
+          fi
