@@ -10,17 +10,37 @@ Hi, I'm **AutoFTbot** — a developer who values simplicity, automation, and cle
 
 ---
 
-## 🛠 Tech Stack
+## 🛠️ Tech Stack
 
-**Languages & Frameworks**
-<p>
-  <img src="https://skillicons.dev/icons?i=python,javascript,nodejs,react,php,golang" />
+### 💻 Languages & Back-End
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=python,go,nodejs,php,csharp" />
 </p>
 
-**Tools & Platforms**
-<p>
-  <img src="https://skillicons.dev/icons?i=html,css,git,github,linux,vscode" />
+### 🌐 Front-End
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=javascript,typescript,react,nextjs,html,css,tailwind" />
 </p>
+
+### 🗃️ Databases
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=mongodb,postgres" />
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
+  <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" />
+</p>
+
+### ⚙️ Tools & DevOps
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=git,github,docker,linux,vscode" />
+</p>
+
+### 🧪 Other Technologies
+<p align="center">
+  <img src="https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white" />
+  <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" />
+  <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=white" />
+</p>
+
 
 ---
 
