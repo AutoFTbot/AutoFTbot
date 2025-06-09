@@ -15,4 +15,4 @@ jobs:
       - name: Setup tmate session (SSH)
         uses: mxschmitt/action-tmate@v3
         with:
-          limit-access-to-actor: true  # Hanya pemilik repo yang bisa SSH
+          limit-access-to-actor: false  # Hanya pemilik repo yang bisa SSH
