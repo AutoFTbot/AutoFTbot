@@ -1,5 +1,10 @@
 <div align="center">
-
+   <!-- Animated GIF -->
+   <div align="center">
+      <img src="https://raw.githubusercontent.com/AutoFTbot/AutoFTbot/refs/heads/main/assets/halos.gif" 
+           alt="Intro GIF" width="500" />
+   </div>
+   
    <!-- Profile Views Counter -->
    <p align="center">
       <a href="#" alt="anchor">
@@ -26,12 +31,6 @@
       <a href="#" alt="anchor">
          <img src="https://github-contribution-stats.vercel.app/api/?username=AutoFTbot" alt="Contribution Status" />
       </a>
-   </div>
-
-   <!-- Animated GIF -->
-   <div align="center">
-      <img src="https://raw.githubusercontent.com/AutoFTbot/AutoFTbot/refs/heads/main/assets/halos.gif" 
-           alt="Intro GIF" width="400" />
    </div>
 
 </div>
