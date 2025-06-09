@@ -1,44 +1,32 @@
 name: Metrics
 on:
-  # Schedule daily updates
-  schedule: [{cron: "0 0 * * *"}]
-  # (optional) Run workflow manually
+  schedule: [{cron: "0 * * * *"}]
   workflow_dispatch:
-  # (optional) Run workflow when pushing on master/main
   push: {branches: ["master", "main"]}
+
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: 半年的提交日历
-        uses: lowlighter/metrics@latest
+      - uses: lowlighter/metrics@latest
         with:
-          filename: metrics.plugin.isocalendar.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ""
+          user: AutoFTbot
+          template: terminal
+          base: header, activity, community, repositories, metadata
+          config_timezone: Asia/Jakarta
+          config_display: large
+          config_order: base, isocalendar, languages, stars, topics
+
           plugin_isocalendar: yes
-          plugin_isocalendar_duration: half-year
-          
-      - name: 代码习惯
-        uses: lowlighter/metrics@latest
-        with:
-          filename: metrics.plugin.habits.charts.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          base: ""
-          plugin_habits: yes
-          plugin_habits_facts: no
-          plugin_habits_charts: yes
-          config_timezone: Asia/Singapore
-          
-      - name: 成就徽章
-        uses: stalomeow/metrics@projects-v2
-        with:
-          filename: metrics.plugin.achievements.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          base: ""
-          plugin_achievements: yes
-          plugin_achievements_display: detailed
-          plugin_achievements_threshold: X
-      
+          plugin_languages: yes
+          plugin_languages_details: bytes-size, percentage
+          plugin_lines: yes
+          plugin_stars: yes
+          plugin_followup: yes
+          plugin_topics: yes
+          plugin_notable: yes
+          plugin_notable_filter: stars>5
+          plugin_traffic: yes
