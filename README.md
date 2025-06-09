@@ -28,6 +28,12 @@
       </a>
    </div>
 
+   <!-- Animated GIF -->
+   <div align="center">
+      <img src="https://raw.githubusercontent.com/AutoFTbot/AutoFTbot/refs/heads/main/assets/halos.gif" 
+           alt="Intro GIF" width="400" />
+   </div>
+
 </div>
 
 <br/>
