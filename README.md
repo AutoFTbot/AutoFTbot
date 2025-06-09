@@ -9,6 +9,9 @@
       <a href="#" alt="anchor"><img src="metrics.plugin.achievements.svg" alt="Achievements" /></a>
    </div>
    <div align="center">
+      <a href="#" alt="anchor"><img src="metrics.plugin.isocalendar.svg" alt="Contributions calendar " /></a>
+   </div>
+   <div align="center">
 <!--       <img src="https://github-readme-stats.vercel.app/api?username=AutoFTbot&rank_icon=percentile&show=prs_merged_percentage" alt="Status" /> -->
       <a href="#" alt="anchor"><img src="https://github-contribution-stats.vercel.app/api/?username=AutoFTbot" alt="Contribution Status"/></a>
    </div>
