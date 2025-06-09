@@ -1,23 +1,19 @@
-<h1 align="center">Hi 👋, I'm AutoFTbot</h1>
+<div align="center">
+   <a href="#" alt="anchor" >
+      <img style="margin-bottom:12px" src="hello2.svg" alt="gretting image"/>
+   </a>
+   <p align="center">
+      <a href="#" alt="anchor"><img height="20" src="https://komarev.com/ghpvc/?username=AutoFTbot&style=flat-square&color=blue&label=PROFILE+VIEWS"></img></a>
+   </p>
+   <div align="center">
+      <a href="#" alt="anchor"><img src="metrics.plugin.achievements.svg" alt="Achievements" /></a>
+   </div>
+   <div align="center">
+<!--       <img src="https://github-readme-stats.vercel.app/api?username=AutoFTbot&rank_icon=percentile&show=prs_merged_percentage" alt="Status" /> -->
+      <a href="#" alt="anchor"><img src="https://github-contribution-stats.vercel.app/api/?username=AutoFTbot" alt="Contribution Status"/></a>
+   </div>
+</div>
 
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=AutoFTbot&label=Profile%20views&color=0e75b6&style=flat" alt="AutoFTbot" />
-</p>
+<br/>
 
----
-
-### 📊 GitHub Metrics
-
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AutoFTbot/AutoFTbot/main/github-metrics-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/AutoFTbot/AutoFTbot/main/github-metrics.svg">
-    <img alt="GitHub Metrics" src="https://raw.githubusercontent.com/AutoFTbot/AutoFTbot/main/github-metrics.svg">
-  </picture>
-</p>
-
----
-
-<p align="center">
-  Made with ❤️ by AutoFTbot
-</p>
+![](https://yhype.me/github/@AutoFTbot)
