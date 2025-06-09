@@ -1,6 +1,7 @@
 <div align="center">
    <!-- Animated GIF -->
-   <div align="center">
+   <div align="center">'
+      <a href="#" alt="anchor">
       <img src="https://raw.githubusercontent.com/AutoFTbot/AutoFTbot/refs/heads/main/assets/halos.gif" 
            alt="Intro GIF" width="500" />
    </div>
