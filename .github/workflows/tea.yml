@@ -1,0 +1,19 @@
+name: Debug CI Environment
+
+on:
+  workflow_dispatch:  # Bisa dipicu manual dari GitHub UI
+
+jobs:
+  ssh-debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true  # Hanya kamu yang bisa akses
+
+      - name: Keep session alive
+        run: sleep 21600  # 6 jam maksimal runtime GitHub Actions
