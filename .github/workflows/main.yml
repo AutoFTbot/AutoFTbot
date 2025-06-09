@@ -1,158 +1,44 @@
-name: GitHub Metrics
-
+name: Metrics
 on:
-  schedule: [{cron: "0 */6 * * *"}]  # Setiap 6 jam
+  # Schedule daily updates
+  schedule: [{cron: "0 0 * * *"}]
+  # (optional) Run workflow manually
   workflow_dispatch:
-  push: {branches: ["main", "master"]}
-
+  # (optional) Run workflow when pushing on master/main
+  push: {branches: ["master", "main"]}
 jobs:
-  github-metrics-light:
+  github-metrics:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - uses: lowlighter/metrics@latest
+      - name: 半年的提交日历
+        uses: lowlighter/metrics@latest
         with:
+          filename: metrics.plugin.isocalendar.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          user: AutoFTbot
-          template: classic
-          base: header, activity, community, repositories, metadata
-          config_display: columns
-          config_timezone: Asia/Jakarta
-          config_twemoji: yes
-          config_output: github-metrics.svg
-
-          plugin_achievements: yes
-          plugin_achievements_display: compact
-          plugin_achievements_secrets: yes
-          plugin_achievements_threshold: C
-          plugin_achievements_limit: 8
-
-          plugin_code: yes
-          plugin_code_days: 3
-          plugin_code_lines: 12
-          plugin_code_load: 400
-          plugin_code_visibility: public
-
-          plugin_habits: yes
-          plugin_habits_charts_type: classic
-          plugin_habits_days: 14
-          plugin_habits_facts: yes
-          plugin_habits_from: 200
-          plugin_habits_languages_limit: 8
-          plugin_habits_languages_threshold: 0%
-          plugin_habits_skipped: OrderKuota-go, VpnBotStore, Wildcard-Bot
-
+          base: ""
           plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
-
-          plugin_languages: yes
-          plugin_languages_analysis_timeout: 15
-          plugin_languages_analysis_timeout_repositories: 7.5
-          plugin_languages_categories: markup, programming
-          plugin_languages_colors: github
-          plugin_languages_ignored: python, go, nodejs, php, javascript, typescript, react, nextjs, html, css, tailwind
-          plugin_languages_limit: 8
-          plugin_languages_recent_categories: markup, programming
-          plugin_languages_recent_days: 14
-          plugin_languages_recent_load: 300
-          plugin_languages_sections: most-used
-          plugin_languages_threshold: 0%
-
-          plugin_lines: yes
-          plugin_lines_history_limit: 1
-          plugin_lines_repositories_limit: 4
-          plugin_lines_sections: base
-          plugin_lines_skipped: OrderKuota-go, VpnBotStore, Wildcard-Bot
-
-          plugin_people: yes
-          plugin_people_limit: 24
-          plugin_people_shuffle: yes
-          plugin_people_size: 28
-          plugin_people_types: followers, following
-
-          plugin_stackoverflow: yes
-          plugin_stackoverflow_user: 25490902
-          plugin_stackoverflow_limit: 2
-          plugin_stackoverflow_lines: 4
-          plugin_stackoverflow_lines_snippet: 2
-          plugin_stackoverflow_sections: answers-top, questions-recent
-
-          plugin_stars: yes
-          plugin_stars_limit: 4
-
-  github-metrics-dark:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: lowlighter/metrics@latest
+          plugin_isocalendar_duration: half-year
+          
+      - name: 代码习惯
+        uses: lowlighter/metrics@latest
         with:
+          filename: metrics.plugin.habits.charts.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          user: AutoFTbot
-          template: classic
-          base: header, activity, community, repositories, metadata
-          config_display: columns
-          config_timezone: Asia/Jakarta
-          config_twemoji: yes
-          config_output: github-metrics-dark.svg
-          config_theme: dark
-
-          plugin_achievements: yes
-          plugin_achievements_display: compact
-          plugin_achievements_secrets: yes
-          plugin_achievements_threshold: C
-          plugin_achievements_limit: 8
-
-          plugin_code: yes
-          plugin_code_days: 3
-          plugin_code_lines: 12
-          plugin_code_load: 400
-          plugin_code_visibility: public
-
+          base: ""
           plugin_habits: yes
-          plugin_habits_charts_type: classic
-          plugin_habits_days: 14
-          plugin_habits_facts: yes
-          plugin_habits_from: 200
-          plugin_habits_languages_limit: 8
-          plugin_habits_languages_threshold: 0%
-          plugin_habits_skipped: OrderKuota-go, VpnBotStore, Wildcard-Bot
-
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
-
-          plugin_languages: yes
-          plugin_languages_analysis_timeout: 15
-          plugin_languages_analysis_timeout_repositories: 7.5
-          plugin_languages_categories: markup, programming
-          plugin_languages_colors: github
-          plugin_languages_ignored: python, go, nodejs, php, javascript, typescript, react, nextjs, html, css, tailwind
-          plugin_languages_limit: 8
-          plugin_languages_recent_categories: markup, programming
-          plugin_languages_recent_days: 14
-          plugin_languages_recent_load: 300
-          plugin_languages_sections: most-used
-          plugin_languages_threshold: 0%
-
-          plugin_lines: yes
-          plugin_lines_history_limit: 1
-          plugin_lines_repositories_limit: 4
-          plugin_lines_sections: base
-          plugin_lines_skipped: OrderKuota-go, VpnBotStore, Wildcard-Bot
-
-          plugin_people: yes
-          plugin_people_limit: 24
-          plugin_people_shuffle: yes
-          plugin_people_size: 28
-          plugin_people_types: followers, following
-
-          plugin_stackoverflow: yes
-          plugin_stackoverflow_user: 25490902
-          plugin_stackoverflow_limit: 2
-          plugin_stackoverflow_lines: 4
-          plugin_stackoverflow_lines_snippet: 2
-          plugin_stackoverflow_sections: answers-top, questions-recent
-
-          plugin_stars: yes
-          plugin_stars_limit: 4
+          plugin_habits_facts: no
+          plugin_habits_charts: yes
+          config_timezone: Asia/Singapore
+          
+      - name: 成就徽章
+        uses: stalomeow/metrics@projects-v2
+        with:
+          filename: metrics.plugin.achievements.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_achievements: yes
+          plugin_achievements_display: detailed
+          plugin_achievements_threshold: X
+      
