@@ -5,6 +5,13 @@
       <img src="https://raw.githubusercontent.com/AutoFTbot/AutoFTbot/refs/heads/main/assets/halos.gif" 
            alt="Intro GIF" width="500" />
    </div>
+   <div align="center">
+   <!-- Animated GIF -->
+   <div align="center">'
+      <a href="#" alt="anchor">
+      <img src="https://holopin.me/autoftbot" 
+           alt="Intro GIF" width="500" />
+   </div>
    
    <!-- Profile Views Counter -->
    <p align="center">
@@ -34,6 +41,22 @@
       </a>
    </div>
 
+<!-- QRIS_START -->
+<div align="center">
+
+<h2>QRIS Donasi Otomatis</h2>
+
+<img src="qris.png" alt="QRIS" width="300" />
+
+<br><br>
+
+</div>
+<!-- QRIS_END -->
+<p align="center">
+  <a href="https://github.com/AutoFTbot/AutoFTbot">
+    <img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AutoFTbot/86a13cfb221fc094c35b4320e102d759/raw/total-donations.json" alt="Total Donasi"/>
+  </a>
+</p>
 </div>
 
 <br/>
