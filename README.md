@@ -22,19 +22,12 @@
 
    <!-- Badgr Badge -->
    <div align="center">
-      <blockquote class="badgr-badge" style="font-family: Helvetica, Roboto, &quot;Segoe UI&quot;, Calibri, sans-serif;">
-         <a href="https://badgr.com/public/assertions/veQ9T_WLQe2RLNAh7xoQvw?identity__email=aginazharmhlutfy%40gmail.com">
-            <img width="120px" height="120px" src="https://api.badgr.io/public/assertions/veQ9T_WLQe2RLNAh7xoQvw/image">
-         </a>
-         <p class="badgr-badge-date" style="margin: 0; font-size: 12px; font-style: normal; font-stretch: normal; line-height: 1.67; letter-spacing: normal; text-align: left; color: #555555;">
-            <strong style="font-size: 12px; font-weight: bold; font-style: normal; font-stretch: normal; line-height: 1.67; letter-spacing: normal; text-align: left; color: #000;">Awarded: </strong>08/02/2025
-         </p>
-         <p class="badgr-badge-recipient" style="margin: 0; font-size: 12px; font-style: normal; font-stretch: normal; line-height: 1.67; letter-spacing: normal; text-align: left; color: #555555;">
-            <strong style="font-size: 12px; font-weight: bold; font-style: normal; font-stretch: normal; line-height: 1.67; letter-spacing: normal; text-align: left; color: #000;">Awarded To: </strong>
-            <span style="display: block;"> AGIN AZHAR MH LUTPI</span>
-         </p>
-         <script async="async" src="https://badgr.com/assets/widgets.bundle.js"></script>
-      </blockquote>
+      <a href="https://badgr.com/public/assertions/veQ9T_WLQe2RLNAh7xoQvw?identity__email=aginazharmhlutfy%40gmail.com">
+         <img width="120px" height="120px" src="https://api.badgr.io/public/assertions/veQ9T_WLQe2RLNAh7xoQvw/image" alt="Badgr Badge">
+      </a>
+      <br>
+      <small><strong>Awarded:</strong> 08/02/2025</small><br>
+      <small><strong>Awarded To:</strong> AGIN AZHAR MH LUTPI</small>
    </div>
 
    <!-- Achievements Metrics -->
