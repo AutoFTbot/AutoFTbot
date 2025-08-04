@@ -22,7 +22,7 @@
 
    <!-- Badgr Badge -->
    <div align="center">
-      <a href="https://api.badgr.io/public/assertions/veQ9T_WLQe2RLNAh7xoQvw/image">
+      <a href="https://badgr.com/public/assertions/veQ9T_WLQe2RLNAh7xoQvw">
          <img width="120px" height="120px" src="https://api.badgr.io/public/assertions/veQ9T_WLQe2RLNAh7xoQvw/image" alt="Badgr Badge">
       </a>
       <br>
