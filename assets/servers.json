@@ -1,0 +1,14 @@
+{
+  "status": "active",
+  "maintenance_message": "System under maintenance",
+  "servers": [
+    {
+      "name": "Server 1",
+      "url": "leasweb.tiancjr.biz.id"
+    },
+    {
+      "name": "Server 2", 
+      "url": "leasweb.tiancjr.biz.id"
+    }
+  ]
+}
