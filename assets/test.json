@@ -1,0 +1,14 @@
+{
+  "status": "active",
+  "maintenance_message": "System is under maintenance. Please try again later.",
+  "servers": [
+    {
+      "name": "ID | T3KNO MINI 🇲🇨",
+      "url": "103.151.140.97:81"
+    },
+    {
+      "name": "SG | NEWMEDIA 🇸🇬",
+      "url": "biz.rosistore.biz.id:81"
+    }
+  ]
+}
