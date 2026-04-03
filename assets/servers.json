@@ -1,13 +1,13 @@
 {
-  "status": "active",
-  "maintenance_message": "System under maintenance",
+  "status": "active1",
+  "maintenance_message": "System is under maintenance. Please try again later.",
   "servers": [
     {
-      "name": "TEST DULU SU", 
-      "url": "113.29.230.79:81",
+      "name": "ID | T3KNO MINI 🇲🇨",
+      "url": "113.29.230.79:81"
     },
     {
-      "name": "NYOBA",
+      "name": "SG | NEWMEDIA 🇸🇬",
       "url": "biz.rosistore.biz.id"
     }
   ]
