@@ -3,11 +3,7 @@
   "maintenance_message": "System under maintenance",
   "servers": [
     {
-      "name": "Server 1",
-      "url": "leasweb.tiancjr.biz.id:81"
-    },
-    {
-      "name": "Server 2", 
+      "name": "TEST DULU SU", 
       "url": "113.29.230.79:81"
     }
   ]
