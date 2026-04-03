@@ -4,11 +4,11 @@
   "servers": [
     {
       "name": "Server 1",
-      "url": "leasweb.tiancjr.biz.id"
+      "url": "leasweb.tiancjr.biz.id:81"
     },
     {
       "name": "Server 2", 
-      "url": "leasweb.tiancjr.biz.id"
+      "url": "113.29.230.79:81"
     }
   ]
 }
